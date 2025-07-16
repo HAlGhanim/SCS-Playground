@@ -11,15 +11,19 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { CacheInterceptor } from './interceptors/cache.interceptor';
+import * as i from './interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withFetch(),
-      withInterceptors([AuthInterceptor, ErrorInterceptor, CacheInterceptor])
+      withInterceptors([
+        i.AuthInterceptor,
+        i.ErrorInterceptor,
+        i.CacheInterceptor,
+        i.loadingInterceptor,
+        i.retryInterceptor,
+      ])
     ),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
