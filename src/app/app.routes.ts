@@ -16,6 +16,26 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'reports',
+    canActivate: [authenticationGuard],
+    children: [
+      {
+        path: 'gcc',
+        loadComponent: () =>
+          import('./pages/reports/gcc-reports/gcc-reports.component').then(
+            (m) => m.GCCReportsComponent
+          ),
+      },
+      // {
+      //   path: 'eab',
+      //   loadComponent: () =>
+      //     import('./pages/reports/eab-reports/eab-reports.component').then(
+      //       (m) => m.EABReportsComponent
+      //     ),
+      // },
+    ],
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then((m) => m.LoginComponent),

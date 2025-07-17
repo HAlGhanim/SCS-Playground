@@ -6,11 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import {
   AuthRequest,
   LoginResponse,
-  RegisterResponse,
 } from '../../interfaces/Authentication.interface';
+import { isTokenValid as checkTokenValidity } from '../../utils/isTokenExpired';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
+  private readonly TOKEN_KEY = 'auth_token';
+
   constructor(http: HttpClient, private router: Router) {
     super(http);
   }
@@ -18,8 +20,8 @@ export class AuthenticationService extends BaseService {
   login(data: AuthRequest): Observable<LoginResponse> {
     return this.post<LoginResponse, AuthRequest>('auth/login', data).pipe(
       tap((response) => {
-        if (response.success) {
-          console.log('Login successful');
+        if (response.success && response.token) {
+          this.setToken(response.token);
         }
       }),
       catchError((error) => {
@@ -29,34 +31,28 @@ export class AuthenticationService extends BaseService {
     );
   }
 
-  register(data: AuthRequest): Observable<RegisterResponse> {
-    return this.post<RegisterResponse, AuthRequest>('auth/register', data).pipe(
-      catchError((error) => {
-        console.error('Registration failed:', error);
-        return throwError(() => error);
-      })
-    );
-  }
-
   logout(): Observable<any> {
     return this.post('auth/logout', {}).pipe(
       tap(() => {
+        this.clearToken();
         this.router.navigate(['/login']);
-      }),
-      catchError((error) => {
-        console.error('Logout failed:', error);
-        return throwError(() => error);
       })
     );
   }
 
-  checkAuth(): Observable<{ isAuthenticated: boolean; username?: string }> {
-    return this.get<{ isAuthenticated: boolean; username?: string }>(
-      'auth/check'
-    ).pipe(
-      catchError(() => {
-        return throwError(() => ({ isAuthenticated: false }));
-      })
-    );
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
+
+  clearToken(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  isTokenValid(): boolean {
+    return checkTokenValidity(this.getToken());
   }
 }

@@ -47,4 +47,13 @@ export class BaseService {
       headers,
     });
   }
+
+  getBlob(url: string, params?: any, headers?: any) {
+    return this._http.get(this.baseUrl + url, {
+      params,
+      headers,
+      responseType: 'blob',
+      observe: 'response',
+    });
+  }
 }
