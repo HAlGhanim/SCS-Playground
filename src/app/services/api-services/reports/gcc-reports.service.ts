@@ -1,50 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { BaseService } from '../base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   GCCBalanceResponse,
   GCCEmployerInfo,
 } from '../../../interfaces/Reports.interface';
+import { environment } from '../../../environment';
 
 @Injectable({ providedIn: 'root' })
 export class GCCReportsService extends BaseService {
+  private readonly gccRptBaseUrl = environment.endpoints.gcc.gccRpt;
+
   constructor(http: HttpClient) {
     super(http);
   }
 
-  // Download report methods
   getGCCRPT20(date?: Date): Observable<Blob> {
-    const params = date ? { Date: date.toISOString().split('T')[0] } : {};
-    return this._http.get(`${this.baseUrl}GCC/GetGCCRPT20`, {
-      params,
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'application/x-zip-compressed',
-      }),
-    });
+    const params: Record<string, string> = date
+      ? { Date: date.toISOString().split('T')[0] }
+      : {};
+
+    return this.getBlob('GCC/GetGCCRPT20', this.gccRptBaseUrl, params, {
+      Accept: 'application/x-zip-compressed',
+    }).pipe(map((response) => response.body as Blob));
   }
 
   getGCCRPT30(date?: Date): Observable<Blob> {
-    const params = date ? { Date: date.toISOString().split('T')[0] } : {};
-    return this._http.get(`${this.baseUrl}GCC/GetGCCRPT30`, {
-      params,
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'application/x-zip-compressed',
-      }),
-    });
+    const params: Record<string, string> = date
+      ? { Date: date.toISOString().split('T')[0] }
+      : {};
+
+    return this.getBlob('GCC/GetGCCRPT30', this.gccRptBaseUrl, params, {
+      Accept: 'application/x-zip-compressed',
+    }).pipe(map((response) => response.body as Blob));
   }
 
-  // API methods
   getGCCEmployerDueBalance(regNum: number): Observable<GCCBalanceResponse> {
     return this.get<GCCBalanceResponse>(
-      `GCCAPI/GetGCCEmployerDueBalance/${regNum}`
+      `GCCAPI/GetGCCEmployerDueBalance/${regNum}`,
+      this.gccRptBaseUrl
     );
   }
 
   getGccEmployerInfo(gccCivilId: string): Observable<GCCEmployerInfo> {
-    return this.get<GCCEmployerInfo>(`GCCAPI/GetGccEmployerInfo/${gccCivilId}`);
+    return this.get<GCCEmployerInfo>(
+      `GCCAPI/GetGccEmployerInfo/${gccCivilId}`,
+      this.gccRptBaseUrl
+    );
   }
 }
