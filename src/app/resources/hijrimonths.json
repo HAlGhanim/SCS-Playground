@@ -1,0 +1,62 @@
+[
+  {
+      "MonthPos":1,
+      "ArabicHijri": "ٱلْمُحَرَّم",
+      "EngHijri": "Muḥarram"
+  },
+  {
+    "MonthPos":2,
+    "ArabicHijri": "صَفَر",
+    "EngHijri": "Ṣafar"
+},
+{
+  "MonthPos":3,
+  "ArabicHijri": "رَبِيع ٱلْأَوَّل",
+  "EngHijri": "Rabī‘ al-awwal"
+},
+{
+  "MonthPos":4,
+  "ArabicHijri": "رَبِيع ٱلْآخِر",
+  "EngHijri": "Rabī‘ ath-thānī"
+},
+{
+  "MonthPos":5,
+  "ArabicHijri": "جُمَادَىٰ ٱلْأُولَىٰ",
+  "EngHijri": "Jumādá al-ūlá"
+},
+{
+  "MonthPos":6,
+  "ArabicHijri": "جُمَادَىٰ ٱلْآخِرَة",
+  "EngHijri": "Jumādá al-ākhirah"
+},
+{
+  "MonthPos":7,
+  "ArabicHijri": "رَجَب",
+  "EngHijri": "Rajab"
+},
+{
+  "MonthPos":8,
+  "ArabicHijri": "شَعْبَان",
+  "EngHijri": "Sha‘bān"
+},
+{
+  "MonthPos":9,
+  "ArabicHijri": "رَمَضَان",
+  "EngHijri": "Ramaḍān"
+},
+{
+  "MonthPos":10,
+  "ArabicHijri": "شَوَّال",
+  "EngHijri": "Shawwāl"
+},
+{
+  "MonthPos":11,
+  "ArabicHijri": "ذُو ٱلْقَعْدَة",
+  "EngHijri": "Dhū al-Qa‘dah"
+},
+{
+  "MonthPos":12,
+  "ArabicHijri": "ذُو ٱلْحِجَّة",
+  "EngHijri": "Dhū al-Ḥijjah"
+}
+]

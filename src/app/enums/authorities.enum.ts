@@ -1,0 +1,16 @@
+export enum Authorities {
+  Manager = 'scs-managers',
+  SuperVisor = 'scs-supervisors',
+  Employee = 'scs-employees',
+  Gcc = 'scs-gcc',
+  Contribution = 'scs-contribution',
+  ContributionGovOwned = 'scs-contrib-govowned',
+  ContributionPrivate = 'scs-contribution-private',
+  ContributionSpecial = 'scs-contribution-special',
+  Pension = 'scs-pension',
+  Registration = 'scs-registration',
+  EmployedAbroad = 'scs-employed-abroad',
+  Account = 'scs-account',
+  AuditOnly = 'scs-audit',
+  DevUsers = 'Ms Developer',
+}

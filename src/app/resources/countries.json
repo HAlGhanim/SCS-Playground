@@ -1,0 +1,1254 @@
+
+[
+    {
+        "code": "AD",
+       "ArabicName": "أندورا",
+        "dialCode": "+376"
+    },
+    {
+        "code": "AE",
+       "ArabicName": "الامارات العربية المتحدة",
+        "dialCode": "+971"
+    },
+    {
+        "code": "AF",
+       "ArabicName": "أفغانستان",
+        "dialCode": "+93"
+    },
+    {
+        "code": "AG",
+       "ArabicName": "أنتيجوا وبربودا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "AI",
+       "ArabicName": "أنجويلا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "AL",
+       "ArabicName": "ألبانيا",
+        "dialCode": "+355"
+    },
+    {
+        "code": "AM",
+       "ArabicName": "أرمينيا",
+        "dialCode": "+374"
+    },
+    {
+        "code": "AO",
+       "ArabicName": "أنجولا",
+        "dialCode": "+244"
+    },
+    {
+        "code": "AQ",
+       "ArabicName": "القطب الجنوبي",
+        "dialCode": "+672"
+    },
+    {
+        "code": "AR",
+       "ArabicName": "الأرجنتين",
+        "dialCode": "+54"
+    },
+    {
+        "code": "AS",
+       "ArabicName": "ساموا الأمريكية",
+        "dialCode": "+1"
+    },
+    {
+        "code": "AT",
+       "ArabicName": "النمسا",
+        "dialCode": "+43"
+    },
+    {
+        "code": "AU",
+       "ArabicName": "أستراليا",
+        "dialCode": "+61"
+    },
+    {
+        "code": "AW",
+       "ArabicName": "آروبا",
+        "dialCode": "+297"
+    },
+    {
+        "code": "AX",
+       "ArabicName": "جزر أولان",
+        "dialCode": "+358"
+    },
+    {
+        "code": "AZ",
+       "ArabicName": "أذربيجان",
+        "dialCode": "+994"
+    },
+    {
+        "code": "BA",
+       "ArabicName": "البوسنة والهرسك",
+        "dialCode": "+387"
+    },
+    {
+        "code": "BB",
+       "ArabicName": "بربادوس",
+        "dialCode": "+1"
+    },
+    {
+        "code": "BD",
+       "ArabicName": "بنجلاديش",
+        "dialCode": "+880"
+    },
+    {
+        "code": "BE",
+       "ArabicName": "بلجيكا",
+        "dialCode": "+32"
+    },
+    {
+        "code": "BF",
+       "ArabicName": "بوركينا فاسو",
+        "dialCode": "+226"
+    },
+    {
+        "code": "BG",
+       "ArabicName": "بلغاريا",
+        "dialCode": "+359"
+    },
+    {
+        "code": "BH",
+       "ArabicName": "البحرين",
+        "dialCode": "+973"
+    },
+    {
+        "code": "BI",
+       "ArabicName": "بوروندي",
+        "dialCode": "+257"
+    },
+    {
+        "code": "BJ",
+       "ArabicName": "بنين",
+        "dialCode": "+229"
+    },
+    {
+        "code": "BL",
+       "ArabicName": "سان بارتيلمي",
+        "dialCode": "+590"
+    },
+    {
+        "code": "BM",
+       "ArabicName": "برمودا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "BN",
+       "ArabicName": "بروناي",
+        "dialCode": "+673"
+    },
+    {
+        "code": "BO",
+       "ArabicName": "بوليفيا",
+        "dialCode": "+591"
+    },
+    {
+        "code": "BQ",
+       "ArabicName": "بونير",
+        "dialCode": "+599"
+    },
+    {
+        "code": "BR",
+       "ArabicName": "البرازيل",
+        "dialCode": "+55"
+    },
+    {
+        "code": "BS",
+       "ArabicName": "الباهاما",
+        "dialCode": "+1"
+    },
+    {
+        "code": "BT",
+       "ArabicName": "بوتان",
+        "dialCode": "+975"
+    },
+    {
+        "code": "BV",
+       "ArabicName": "جزيرة بوفيه",
+        "dialCode": "+47"
+    },
+    {
+        "code": "BW",
+       "ArabicName": "بتسوانا",
+        "dialCode": "+267"
+    },
+    {
+        "code": "BY",
+       "ArabicName": "روسيا البيضاء",
+        "dialCode": "+375"
+    },
+    {
+        "code": "BZ",
+       "ArabicName": "بليز",
+        "dialCode": "+501"
+    },
+    {
+        "code": "CA",
+       "ArabicName": "كندا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "CC",
+       "ArabicName": "جزر كوكوس",
+        "dialCode": "+61"
+    },
+    {
+        "code": "CD",
+       "ArabicName": "جمهورية الكونغو الديمقراطية",
+        "dialCode": "+243"
+    },
+    {
+        "code": "CF",
+       "ArabicName": "جمهورية افريقيا الوسطى",
+        "dialCode": "+236"
+    },
+    {
+        "code": "CG",
+       "ArabicName": "الكونغو - برازافيل",
+        "dialCode": "+242"
+    },
+    {
+        "code": "CH",
+       "ArabicName": "سويسرا",
+        "dialCode": "+41"
+    },
+    {
+        "code": "CI",
+       "ArabicName": "ساحل العاج",
+        "dialCode": "+225"
+    },
+    {
+        "code": "CK",
+       "ArabicName": "جزر كوك",
+        "dialCode": "+682"
+    },
+    {
+        "code": "CL",
+       "ArabicName": "شيلي",
+        "dialCode": "+56"
+    },
+    {
+        "code": "CM",
+       "ArabicName": "الكاميرون",
+        "dialCode": "+237"
+    },
+    {
+        "code": "CN",
+       "ArabicName": "الصين",
+        "dialCode": "+86"
+    },
+    {
+        "code": "CO",
+       "ArabicName": "كولومبيا",
+        "dialCode": "+57"
+    },
+    {
+        "code": "CR",
+       "ArabicName": "كوستاريكا",
+        "dialCode": "+506"
+    },
+    {
+        "code": "CU",
+       "ArabicName": "كوبا",
+        "dialCode": "+53"
+    },
+    {
+        "code": "CV",
+       "ArabicName": "الرأس الأخضر",
+        "dialCode": "+238"
+    },
+    {
+        "code": "CW",
+       "ArabicName": "كوراساو",
+        "dialCode": "+599"
+    },
+    {
+        "code": "CX",
+       "ArabicName": "جزيرة الكريسماس",
+        "dialCode": "+61"
+    },
+    {
+        "code": "CY",
+       "ArabicName": "قبرص",
+        "dialCode": "+357"
+    },
+    {
+        "code": "CZ",
+       "ArabicName": "جمهورية التشيك",
+        "dialCode": "+420"
+    },
+    {
+        "code": "DE",
+       "ArabicName": "ألمانيا",
+        "dialCode": "+49"
+    },
+    {
+        "code": "DJ",
+       "ArabicName": "جيبوتي",
+        "dialCode": "+253"
+    },
+    {
+        "code": "DK",
+       "ArabicName": "الدانمرك",
+        "dialCode": "+45"
+    },
+    {
+        "code": "DM",
+       "ArabicName": "دومينيكا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "DO",
+       "ArabicName": "جمهورية الدومينيك",
+        "dialCode": "+1"
+    },
+    {
+        "code": "DZ",
+       "ArabicName": "الجزائر",
+        "dialCode": "+213"
+    },
+    {
+        "code": "EC",
+       "ArabicName": "الاكوادور",
+        "dialCode": "+593"
+    },
+    {
+        "code": "EE",
+       "ArabicName": "استونيا",
+        "dialCode": "+372"
+    },
+    {
+        "code": "EG",
+       "ArabicName": "مصر",
+        "dialCode": "+20"
+    },
+    {
+        "code": "EH",
+       "ArabicName": "الصحراء الغربية",
+        "dialCode": "+212"
+    },
+    {
+        "code": "ER",
+       "ArabicName": "اريتريا",
+        "dialCode": "+291"
+    },
+    {
+        "code": "ES",
+       "ArabicName": "أسبانيا",
+        "dialCode": "+34"
+    },
+    {
+        "code": "ET",
+       "ArabicName": "اثيوبيا",
+        "dialCode": "+251"
+    },
+    {
+        "code": "FI",
+       "ArabicName": "فنلندا",
+        "dialCode": "+358"
+    },
+    {
+        "code": "FJ",
+       "ArabicName": "فيجي",
+        "dialCode": "+679"
+    },
+    {
+        "code": "FK",
+       "ArabicName": "جزر فوكلاند",
+        "dialCode": "+500"
+    },
+    {
+        "code": "FM",
+       "ArabicName": "ميكرونيزيا",
+        "dialCode": "+691"
+    },
+    {
+        "code": "FO",
+       "ArabicName": "جزر فارو",
+        "dialCode": "+298"
+    },
+    {
+        "code": "FR",
+       "ArabicName": "فرنسا",
+        "dialCode": "+33"
+    },
+    {
+        "code": "GA",
+       "ArabicName": "الجابون",
+        "dialCode": "+241"
+    },
+    {
+        "code": "GB",
+       "ArabicName": "المملكة المتحدة",
+        "dialCode": "+44"
+    },
+    {
+        "code": "GD",
+       "ArabicName": "جرينادا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "GE",
+       "ArabicName": "جورجيا",
+        "dialCode": "+995"
+    },
+    {
+        "code": "GF",
+       "ArabicName": "غويانا",
+        "dialCode": "+594"
+    },
+    {
+        "code": "GG",
+       "ArabicName": "غيرنزي",
+        "dialCode": "+44"
+    },
+    {
+        "code": "GH",
+       "ArabicName": "غانا",
+        "dialCode": "+233"
+    },
+    {
+        "code": "GI",
+       "ArabicName": "جبل طارق",
+        "dialCode": "+350"
+    },
+    {
+        "code": "GL",
+       "ArabicName": "جرينلاند",
+        "dialCode": "+299"
+    },
+    {
+        "code": "GM",
+       "ArabicName": "غامبيا",
+        "dialCode": "+220"
+    },
+    {
+        "code": "GN",
+       "ArabicName": "غينيا",
+        "dialCode": "+224"
+    },
+    {
+        "code": "GP",
+       "ArabicName": "جوادلوب",
+        "dialCode": "+590"
+    },
+    {
+        "code": "GQ",
+       "ArabicName": "غينيا الاستوائية",
+        "dialCode": "+240"
+    },
+    {
+        "code": "GR",
+       "ArabicName": "اليونان",
+        "dialCode": "+30"
+    },
+    {
+        "code": "GS",
+       "ArabicName": "جورجيا الجنوبية وجزر ساندويتش الجنوبية",
+        "dialCode": "+500"
+    },
+    {
+        "code": "GT",
+       "ArabicName": "جواتيمالا",
+        "dialCode": "+502"
+    },
+    {
+        "code": "GU",
+       "ArabicName": "جوام",
+        "dialCode": "+1"
+    },
+    {
+        "code": "GW",
+       "ArabicName": "غينيا بيساو",
+        "dialCode": "+245"
+    },
+    {
+        "code": "GY",
+       "ArabicName": "غيانا",
+        "dialCode": "+595"
+    },
+    {
+        "code": "HK",
+       "ArabicName": "هونج كونج الصينية",
+        "dialCode": "+852"
+    },
+    {
+        "code": "HM",
+       "ArabicName": "جزيرة هيرد وماكدونالد",
+        "dialCode": ""
+    },
+    {
+        "code": "HN",
+       "ArabicName": "هندوراس",
+        "dialCode": "+504"
+    },
+    {
+        "code": "HR",
+       "ArabicName": "كرواتيا",
+        "dialCode": "+385"
+    },
+    {
+        "code": "HT",
+       "ArabicName": "هايتي",
+        "dialCode": "+509"
+    },
+    {
+        "code": "HU",
+       "ArabicName": "المجر",
+        "dialCode": "+36"
+    },
+    {
+        "code": "ID",
+       "ArabicName": "اندونيسيا",
+        "dialCode": "+62"
+    },
+    {
+        "code": "IE",
+       "ArabicName": "أيرلندا",
+        "dialCode": "+353"
+    },
+    {
+        "code": "IL",
+       "ArabicName": "اسرائيل",
+        "dialCode": "+972"
+    },
+    {
+        "code": "IM",
+       "ArabicName": "جزيرة مان",
+        "dialCode": "+44"
+    },
+    {
+        "code": "IN",
+       "ArabicName": "الهند",
+        "dialCode": "+91"
+    },
+    {
+        "code": "IO",
+       "ArabicName": "المحيط الهندي البريطاني",
+        "dialCode": "+246"
+    },
+    {
+        "code": "IQ",
+       "ArabicName": "العراق",
+        "dialCode": "+964"
+    },
+    {
+        "code": "IR",
+       "ArabicName": "ايران",
+        "dialCode": "+98"
+    },
+    {
+        "code": "IS",
+       "ArabicName": "أيسلندا",
+        "dialCode": "+354"
+    },
+    {
+        "code": "IT",
+       "ArabicName": "ايطاليا",
+        "dialCode": "+39"
+    },
+    {
+        "code": "JE",
+       "ArabicName": "جيرسي",
+        "dialCode": "+44"
+    },
+    {
+        "code": "JM",
+       "ArabicName": "جامايكا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "JO",
+       "ArabicName": "الأردن",
+        "dialCode": "+962"
+    },
+    {
+        "code": "JP",
+       "ArabicName": "اليابان",
+        "dialCode": "+81"
+    },
+    {
+        "code": "KE",
+       "ArabicName": "كينيا",
+        "dialCode": "+254"
+    },
+    {
+        "code": "KG",
+       "ArabicName": "قرغيزستان",
+        "dialCode": "+996"
+    },
+    {
+        "code": "KH",
+       "ArabicName": "كمبوديا",
+        "dialCode": "+855"
+    },
+    {
+        "code": "KI",
+       "ArabicName": "كيريباتي",
+        "dialCode": "+686"
+    },
+    {
+        "code": "KM",
+       "ArabicName": "جزر القمر",
+        "dialCode": "+269"
+    },
+    {
+        "code": "KN",
+       "ArabicName": "سانت كيتس ونيفيس",
+        "dialCode": "+1"
+    },
+    {
+        "code": "KP",
+       "ArabicName": "كوريا الشمالية",
+        "dialCode": "+850"
+    },
+    {
+        "code": "KR",
+       "ArabicName": "كوريا الجنوبية",
+        "dialCode": "+82"
+    },
+    {
+        "code": "KW",
+       "ArabicName": "الكويت",
+        "dialCode": "+965"
+    },
+    {
+        "code": "KY",
+       "ArabicName": "جزر الكايمن",
+        "dialCode": "+345"
+    },
+    {
+        "code": "KZ",
+       "ArabicName": "كازاخستان",
+        "dialCode": "+7"
+    },
+    {
+        "code": "LA",
+       "ArabicName": "لاوس",
+        "dialCode": "+856"
+    },
+    {
+        "code": "LB",
+       "ArabicName": "لبنان",
+        "dialCode": "+961"
+    },
+    {
+        "code": "LC",
+       "ArabicName": "سانت لوسيا",
+        "dialCode": "+1"
+    },
+    {
+        "code": "LI",
+       "ArabicName": "ليختنشتاين",
+        "dialCode": "+423"
+    },
+    {
+        "code": "LK",
+       "ArabicName": "سريلانكا",
+        "dialCode": "+94"
+    },
+    {
+        "code": "LR",
+       "ArabicName": "ليبيريا",
+        "dialCode": "+231"
+    },
+    {
+        "code": "LS",
+       "ArabicName": "ليسوتو",
+        "dialCode": "+266"
+    },
+    {
+        "code": "LT",
+       "ArabicName": "ليتوانيا",
+        "dialCode": "+370"
+    },
+    {
+        "code": "LU",
+       "ArabicName": "لوكسمبورج",
+        "dialCode": "+352"
+    },
+    {
+        "code": "LV",
+       "ArabicName": "لاتفيا",
+        "dialCode": "+371"
+    },
+    {
+        "code": "LY",
+       "ArabicName": "ليبيا",
+        "dialCode": "+218"
+    },
+    {
+        "code": "MA",
+       "ArabicName": "المغرب",
+        "dialCode": "+212"
+    },
+    {
+        "code": "MC",
+       "ArabicName": "موناكو",
+        "dialCode": "+377"
+    },
+    {
+        "code": "MD",
+       "ArabicName": "مولدافيا",
+        "dialCode": "+373"
+    },
+    {
+        "code": "ME",
+       "ArabicName": "الجبل الأسود",
+        "dialCode": "+382"
+    },
+    {
+        "code": "MF",
+       "ArabicName": "سانت مارتين",
+        "dialCode": "+590"
+    },
+    {
+        "code": "MG",
+       "ArabicName": "مدغشقر",
+        "dialCode": "+261"
+    },
+    {
+        "code": "MH",
+       "ArabicName": "جزر المارشال",
+        "dialCode": "+692"
+    },
+    {
+        "code": "MK",
+       "ArabicName": "مقدونيا",
+        "dialCode": "+389"
+    },
+    {
+        "code": "ML",
+       "ArabicName": "مالي",
+        "dialCode": "+223"
+    },
+    {
+        "code": "MM",
+       "ArabicName": "ميانمار",
+        "dialCode": "+95"
+    },
+    {
+        "code": "MN",
+       "ArabicName": "منغوليا",
+        "dialCode": "+976"
+    },
+    {
+        "code": "MO",
+       "ArabicName": "ماكاو الصينية",
+        "dialCode": "+853"
+    },
+    {
+        "code": "MP",
+       "ArabicName": "جزر ماريانا الشمالية",
+        "dialCode": "+1"
+    },
+    {
+        "code": "MQ",
+       "ArabicName": "مارتينيك",
+        "dialCode": "+596"
+    },
+    {
+        "code": "MR",
+       "ArabicName": "موريتانيا",
+        "dialCode": "+222"
+    },
+    {
+        "code": "MS",
+       "ArabicName": "مونتسرات",
+        "dialCode": "+1"
+    },
+    {
+        "code": "MT",
+       "ArabicName": "مالطا",
+        "dialCode": "+356"
+    },
+    {
+        "code": "MU",
+       "ArabicName": "موريشيوس",
+        "dialCode": "+230"
+    },
+    {
+        "code": "MV",
+       "ArabicName": "جزر الملديف",
+        "dialCode": "+960"
+    },
+    {
+        "code": "MW",
+       "ArabicName": "ملاوي",
+        "dialCode": "+265"
+    },
+    {
+        "code": "MX",
+       "ArabicName": "المكسيك",
+        "dialCode": "+52"
+    },
+    {
+        "code": "MY",
+       "ArabicName": "ماليزيا",
+        "dialCode": "+60"
+    },
+    {
+        "code": "MZ",
+       "ArabicName": "موزمبيق",
+        "dialCode": "+258"
+    },
+    {
+        "code": "NA",
+       "ArabicName": "ناميبيا",
+        "dialCode": "+264"
+    },
+    {
+        "code": "NC",
+       "ArabicName": "كاليدونيا الجديدة",
+        "dialCode": "+687"
+    },
+    {
+        "code": "NE",
+       "ArabicName": "النيجر",
+        "dialCode": "+227"
+    },
+    {
+        "code": "NF",
+       "ArabicName": "جزيرة نورفوك",
+        "dialCode": "+672"
+    },
+    {
+        "code": "NG",
+       "ArabicName": "نيجيريا",
+        "dialCode": "+234"
+    },
+    {
+        "code": "NI",
+       "ArabicName": "نيكاراجوا",
+        "dialCode": "+505"
+    },
+    {
+        "code": "NL",
+       "ArabicName": "هولندا",
+        "dialCode": "+31"
+    },
+    {
+        "code": "NO",
+       "ArabicName": "النرويج",
+        "dialCode": "+47"
+    },
+    {
+        "code": "NP",
+       "ArabicName": "نيبال",
+        "dialCode": "+977"
+    },
+    {
+        "code": "NR",
+       "ArabicName": "نورو",
+        "dialCode": "+674"
+    },
+    {
+        "code": "NU",
+       "ArabicName": "نيوي",
+        "dialCode": "+683"
+    },
+    {
+        "code": "NZ",
+       "ArabicName": "نيوزيلاندا",
+        "dialCode": "+64"
+    },
+    {
+        "code": "OM",
+       "ArabicName": "عمان",
+        "dialCode": "+968"
+    },
+    {
+        "code": "PA",
+       "ArabicName": "بنما",
+        "dialCode": "+507"
+    },
+    {
+        "code": "PE",
+       "ArabicName": "بيرو",
+        "dialCode": "+51"
+    },
+    {
+        "code": "PF",
+       "ArabicName": "بولينيزيا الفرنسية",
+        "dialCode": "+689"
+    },
+    {
+        "code": "PG",
+       "ArabicName": "بابوا غينيا الجديدة",
+        "dialCode": "+675"
+    },
+    {
+        "code": "PH",
+       "ArabicName": "الفيلبين",
+        "dialCode": "+63"
+    },
+    {
+        "code": "PK",
+       "ArabicName": "باكستان",
+        "dialCode": "+92"
+    },
+    {
+        "code": "PL",
+       "ArabicName": "بولندا",
+        "dialCode": "+48"
+    },
+    {
+        "code": "PM",
+       "ArabicName": "سانت بيير وميكولون",
+        "dialCode": "+508"
+    },
+    {
+        "code": "PN",
+       "ArabicName": "بتكايرن",
+        "dialCode": "+872"
+    },
+    {
+        "code": "PR",
+       "ArabicName": "بورتوريكو",
+        "dialCode": "+1"
+    },
+    {
+        "code": "PS",
+       "ArabicName": "فلسطين",
+        "dialCode": "+970"
+    },
+    {
+        "code": "PT",
+       "ArabicName": "البرتغال",
+        "dialCode": "+351"
+    },
+    {
+        "code": "PW",
+       "ArabicName": "بالاو",
+        "dialCode": "+680"
+    },
+    {
+        "code": "PY",
+       "ArabicName": "باراجواي",
+        "dialCode": "+595"
+    },
+    {
+        "code": "QA",
+       "ArabicName": "قطر",
+        "dialCode": "+974"
+    },
+    {
+        "code": "RE",
+       "ArabicName": "روينيون",
+        "dialCode": "+262"
+    },
+    {
+        "code": "RO",
+       "ArabicName": "رومانيا",
+        "dialCode": "+40"
+    },
+    {
+        "code": "RS",
+       "ArabicName": "صربيا",
+        "dialCode": "+381"
+    },
+    {
+        "code": "RU",
+       "ArabicName": "روسيا",
+        "dialCode": "+7"
+    },
+    {
+        "code": "RW",
+       "ArabicName": "رواندا",
+        "dialCode": "+250"
+    },
+    {
+        "code": "SA",
+       "ArabicName": "المملكة العربية السعودية",
+        "dialCode": "+966"
+    },
+    {
+        "code": "SB",
+       "ArabicName": "جزر سليمان",
+        "dialCode": "+677"
+    },
+    {
+        "code": "SC",
+       "ArabicName": "سيشل",
+        "dialCode": "+248"
+    },
+    {
+        "code": "SD",
+       "ArabicName": "السودان",
+        "dialCode": "+249"
+    },
+    {
+        "code": "SE",
+       "ArabicName": "السويد",
+        "dialCode": "+46"
+    },
+    {
+        "code": "SG",
+       "ArabicName": "سنغافورة",
+        "dialCode": "+65"
+    },
+    {
+        "code": "SH",
+       "ArabicName": "سانت هيلنا",
+        "dialCode": "+290"
+    },
+    {
+        "code": "SI",
+       "ArabicName": "سلوفينيا",
+        "dialCode": "+386"
+    },
+    {
+        "code": "SJ",
+       "ArabicName": "سفالبارد وجان مايان",
+        "dialCode": "+47"
+    },
+    {
+        "code": "SK",
+       "ArabicName": "سلوفاكيا",
+        "dialCode": "+421"
+    },
+    {
+        "code": "SL",
+       "ArabicName": "سيراليون",
+        "dialCode": "+232"
+    },
+    {
+        "code": "SM",
+       "ArabicName": "سان مارينو",
+        "dialCode": "+378"
+    },
+    {
+        "code": "SN",
+       "ArabicName": "السنغال",
+        "dialCode": "+221"
+    },
+    {
+        "code": "SO",
+       "ArabicName": "الصومال",
+        "dialCode": "+252"
+    },
+    {
+        "code": "SR",
+       "ArabicName": "سورينام",
+        "dialCode": "+597"
+    },
+    {
+        "code": "SS",
+       "ArabicName": "جنوب السودان",
+        "dialCode": "+211"
+    },
+    {
+        "code": "ST",
+       "ArabicName": "ساو تومي وبرينسيبي",
+        "dialCode": "+239"
+    },
+    {
+        "code": "SV",
+       "ArabicName": "السلفادور",
+        "dialCode": "+503"
+    },
+    {
+        "code": "SX",
+       "ArabicName": "سينت مارتن",
+        "dialCode": "+1"
+    },
+    {
+        "code": "SY",
+       "ArabicName": "سوريا",
+        "dialCode": "+963"
+    },
+    {
+        "code": "SZ",
+       "ArabicName": "سوازيلاند",
+        "dialCode": "+268"
+    },
+    {
+        "code": "TC",
+       "ArabicName": "جزر الترك وجايكوس",
+        "dialCode": "+1"
+    },
+    {
+        "code": "TD",
+       "ArabicName": "تشاد",
+        "dialCode": "+235"
+    },
+    {
+        "code": "TF",
+       "ArabicName": "المقاطعات الجنوبية الفرنسية",
+        "dialCode": "+262"
+    },
+    {
+        "code": "TG",
+       "ArabicName": "توجو",
+        "dialCode": "+228"
+    },
+    {
+        "code": "TH",
+       "ArabicName": "تايلند",
+        "dialCode": "+66"
+    },
+    {
+        "code": "TJ",
+       "ArabicName": "طاجكستان",
+        "dialCode": "+992"
+    },
+    {
+        "code": "TK",
+       "ArabicName": "توكيلو",
+        "dialCode": "+690"
+    },
+    {
+        "code": "TL",
+       "ArabicName": "تيمور الشرقية",
+        "dialCode": "+670"
+    },
+    {
+        "code": "TM",
+       "ArabicName": "تركمانستان",
+        "dialCode": "+993"
+    },
+    {
+        "code": "TN",
+       "ArabicName": "تونس",
+        "dialCode": "+216"
+    },
+    {
+        "code": "TO",
+       "ArabicName": "تونجا",
+        "dialCode": "+676"
+    },
+    {
+        "code": "TR",
+       "ArabicName": "تركيا",
+        "dialCode": "+90"
+    },
+    {
+        "code": "TT",
+       "ArabicName": "ترينيداد وتوباغو",
+        "dialCode": "+1"
+    },
+    {
+        "code": "TV",
+       "ArabicName": "توفالو",
+        "dialCode": "+688"
+    },
+    {
+        "code": "TW",
+       "ArabicName": "تايوان",
+        "dialCode": "+886"
+    },
+    {
+        "code": "TZ",
+       "ArabicName": "تانزانيا",
+        "dialCode": "+255"
+    },
+    {
+        "code": "UA",
+       "ArabicName": "أوكرانيا",
+        "dialCode": "+380"
+    },
+    {
+        "code": "UG",
+       "ArabicName": "أوغندا",
+        "dialCode": "+256"
+    },
+    {
+        "code": "UM",
+       "ArabicName": "جزر الولايات المتحدة البعيدة الصغيرة",
+        "dialCode": ""
+    },
+    {
+        "code": "US",
+       "ArabicName": "الولايات المتحدة الأمريكية",
+        "dialCode": "+1"
+    },
+    {
+        "code": "UY",
+       "ArabicName": "أورجواي",
+        "dialCode": "+598"
+    },
+    {
+        "code": "UZ",
+       "ArabicName": "أوزبكستان",
+        "dialCode": "+998"
+    },
+    {
+        "code": "VA",
+       "ArabicName": "الفاتيكان",
+        "dialCode": "+379"
+    },
+    {
+        "code": "VC",
+       "ArabicName": "سانت فنسنت وغرنادين",
+        "dialCode": "+1"
+    },
+    {
+        "code": "VE",
+       "ArabicName": "فنزويلا",
+        "dialCode": "+58"
+    },
+    {
+        "code": "VG",
+       "ArabicName": "جزر فرجين البريطانية",
+        "dialCode": "+1"
+    },
+    {
+        "code": "VI",
+       "ArabicName": "جزر فرجين الأمريكية",
+        "dialCode": "+1"
+    },
+    {
+        "code": "VN",
+       "ArabicName": "فيتنام",
+        "dialCode": "+84"
+    },
+    {
+        "code": "VU",
+       "ArabicName": "فانواتو",
+        "dialCode": "+678"
+    },
+    {
+        "code": "WF",
+       "ArabicName": "جزر والس وفوتونا",
+        "dialCode": "+681"
+    },
+    {
+        "code": "WS",
+       "ArabicName": "ساموا",
+        "dialCode": "+685"
+    },
+    {
+        "code": "XK",
+       "ArabicName": "كوسوفو",
+        "dialCode": "+383"
+    },
+    {
+        "code": "YE",
+       "ArabicName": "اليمن",
+        "dialCode": "+967"
+    },
+    {
+        "code": "YT",
+       "ArabicName": "مايوت",
+        "dialCode": "+262"
+    },
+    {
+        "code": "ZA",
+       "ArabicName": "جمهورية جنوب افريقيا",
+        "dialCode": "+27"
+    },
+    {
+        "code": "ZM",
+       "ArabicName": "زامبيا",
+        "dialCode": "+260"
+    },
+    {
+        "code": "ZW",
+       "ArabicName": "زيمبابوي",
+        "dialCode": "+263"
+    }
+]
+
