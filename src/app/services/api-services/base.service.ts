@@ -56,5 +56,4 @@ export class BaseService {
       observe: 'response',
     });
   }
-  // test
 }
