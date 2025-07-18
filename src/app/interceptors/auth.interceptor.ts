@@ -7,7 +7,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthenticationService);
   const token = authService.getToken();
 
-  let headers = req.headers.set('PIFSSApiKey', environment.apiKey);
+  let headers = req.headers.set('PIFSSApiKey', environment.pifssApiKey);
 
   if (token) {
     headers = headers.set('Authorization', `Bearer ${token}`);
