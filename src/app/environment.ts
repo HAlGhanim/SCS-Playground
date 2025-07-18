@@ -4,6 +4,7 @@ export const environment = {
   employedAbroad: 'https://websvcs01.pifss.devlocal/CoreBizApi/',
   scsbackendUrl: 'https://websvcs01.pifss.devlocal/',
   // pifssApiDocUrl: 'http://192.168.101.192:3000/toPDF/',
+  pifssApiKey: '+~^HaKocPIFSS0F#C+KGCCRPTAPI5',
   endpoints: {
     certificates: 'certificates/',
     unenrolledData: 'unenrolledData/',
