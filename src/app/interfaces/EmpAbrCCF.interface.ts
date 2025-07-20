@@ -3,7 +3,6 @@ export interface CCFReason {
   ccF_RSN_CODE: number;
 }
 
-
 export interface CCFData {
   rceiveddate: string;
   ccfnum: string;

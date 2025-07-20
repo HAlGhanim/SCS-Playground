@@ -1,3 +1,7 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
 export const environment = {
   production: false,
   baseUrl: 'http://192.168.100.158:8080/',
@@ -14,7 +18,7 @@ export const environment = {
     unenrolledData: 'unenrolledData/',
     gcc: {
       certificates: 'GCC/certificates/',
-      gccRpt: 'http://192.168.100.100/GCCReport/',
+      gccRpt: 'https://localhost:7077/',
     },
     pbDapperUrl: 'http://192.168.100.100/PBDapper/',
   },
