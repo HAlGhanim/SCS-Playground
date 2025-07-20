@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,10 +5,6 @@ import { BaseService } from '../base.service';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesAbroadService extends BaseService {
-  constructor(http: HttpClient) {
-    super(http);
-  }
-
   // These return Excel files
 
   /**
@@ -22,7 +17,7 @@ export class EmployeesAbroadService extends BaseService {
         ? dueDate
         : dueDate.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetEABMonthsDue/${dateStr}`).pipe(
+    return this.getBlob(`EAB/GetEABMonthsDue/${dateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }
@@ -37,7 +32,7 @@ export class EmployeesAbroadService extends BaseService {
         ? dueDate
         : dueDate.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetEABInActiveCreditors/${dateStr}`).pipe(
+    return this.getBlob(`EAB/GetEABInActiveCreditors/${dateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }
@@ -52,7 +47,7 @@ export class EmployeesAbroadService extends BaseService {
         ? dueDate
         : dueDate.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetEABInActiveDeptors/${dateStr}`).pipe(
+    return this.getBlob(`EAB/GetEABInActiveDeptors/${dateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }
@@ -67,7 +62,7 @@ export class EmployeesAbroadService extends BaseService {
         ? dueDate
         : dueDate.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetEABActiveCreditors/${dateStr}`).pipe(
+    return this.getBlob(`EAB/GetEABActiveCreditors/${dateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }
@@ -82,7 +77,7 @@ export class EmployeesAbroadService extends BaseService {
         ? dueDate
         : dueDate.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetEABActiveDeptors/${dateStr}`).pipe(
+    return this.getBlob(`EAB/GetEABActiveDeptors/${dateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }
@@ -99,7 +94,7 @@ export class EmployeesAbroadService extends BaseService {
     const endDateStr =
       typeof endFY === 'string' ? endFY : endFY.toISOString().split('T')[0];
 
-    return this.getBlob(`api/EAB/GetCF020/${startDateStr}/${endDateStr}`).pipe(
+    return this.getBlob(`EAB/GetCF020/${startDateStr}/${endDateStr}`).pipe(
       map((response) => response.body as Blob)
     );
   }

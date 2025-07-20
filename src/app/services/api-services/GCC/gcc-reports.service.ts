@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseService } from '../base.service';
-import { HttpClient } from '@angular/common/http';
 import {
   GCCBalanceResponse,
   GCCEmployerInfo,
 } from '../../../interfaces/Reports.interface';
+import { BaseService } from '../base.service';
 
 @Injectable({ providedIn: 'root' })
 export class GCCReportsService extends BaseService {
-  constructor(http: HttpClient) {
-    super(http);
-  }
-
   getGCCEmployerDueBalance(regNum: number): Observable<GCCBalanceResponse> {
     return this.get<GCCBalanceResponse>(
       `GCCAPI/GetGCCEmployerDueBalance/${regNum}`
