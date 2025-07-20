@@ -6,7 +6,7 @@ import { environment } from '../../environment';
   providedIn: 'root',
 })
 export class BaseService {
-  constructor(private readonly _http: HttpClient) {}
+  constructor(protected readonly _http: HttpClient) {}
 
   private readonly baseUrl: string = environment.endpoints.gcc.gccRpt;
 
