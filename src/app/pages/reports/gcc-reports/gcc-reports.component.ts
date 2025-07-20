@@ -1,14 +1,13 @@
-// src/app/pages/reports/gcc-reports/gcc-reports.component.ts
-import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { GCCReportsService } from '../../../services/api-services/reports/gcc-reports.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GCCService } from '../../../services/api-services/GCC/gcc.service';
 import { FileDownloadService } from '../../../services/app-services/file-download.service';
 
 @Component({
@@ -27,7 +26,7 @@ import { FileDownloadService } from '../../../services/app-services/file-downloa
 })
 export class GCCReportsComponent {
   private fb = inject(FormBuilder);
-  private gccService = inject(GCCReportsService);
+  private gccService = inject(GCCService);
   private fileService = inject(FileDownloadService);
   private snackBar = inject(MatSnackBar);
 
