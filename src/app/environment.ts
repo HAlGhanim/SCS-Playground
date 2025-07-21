@@ -18,7 +18,7 @@ export const environment = {
     unenrolledData: 'unenrolledData/',
     gcc: {
       certificates: 'GCC/certificates/',
-      gccRpt: 'https://localhost:7077/api',
+      gccRpt: 'http://192.168.100.100/GCCReport/api/',
     },
     pbDapperUrl: 'http://192.168.100.100/PBDapper/',
   },
