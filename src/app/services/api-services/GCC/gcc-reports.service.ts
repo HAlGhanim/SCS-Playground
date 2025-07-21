@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseService } from '../base.service';
 import {
   GCCBalanceResponse,
   GCCEmployerInfo,
-} from '../../../interfaces/Reports.interface';
-import { BaseService } from '../base.service';
+} from '../../../interfaces/gcc-reports/gcc-reports.interface';
 
 @Injectable({ providedIn: 'root' })
 export class GCCReportsService extends BaseService {

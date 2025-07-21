@@ -8,7 +8,7 @@ export const environment = {
     unenrolledData: 'unenrolledData/',
     gcc: {
       certificates: 'GCC/certificates/',
-      gccRpt: 'http://websvcs.pifss.local/GCCRPT/',
+      gccRpt: 'http://websvcs.pifss.local/GCCRPT/api/',
     },
     pbDapperUrl: 'http://websvcs.pifss.local/pbalances/',
     // the one in dev is gccreports or not
