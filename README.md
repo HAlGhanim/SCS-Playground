@@ -246,9 +246,7 @@
 
 ## Registration Number Format - تنسيق رقم التسجيل
 
-- Must be 7 digits starting with 8
-- Format: 8XXXXXX
-- Valid range: 8000000 - 8999999
+- Must be 7 digits
 
 ---
 
