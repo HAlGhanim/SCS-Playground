@@ -18,6 +18,7 @@ import {
 import { GCCService } from '../../services/api-services/GCC/gcc.service';
 import { GCCReportsService } from '../../services/api-services/GCC/gcc-reports.service';
 import { FileDownloadService } from '../../services/app-services/file-download.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-gcc-reports',
@@ -42,49 +43,51 @@ export class GCCReportsComponent implements OnInit {
     {
       id: 'GCCRPT20',
       name: 'GCC Employers Report (GCC Currency)',
-      nameAr: 'كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية',
+      nameAr: 'كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية (20)',
       category: 'employer',
     },
     {
       id: 'GCCRPT30',
       name: 'GCC Employers Report (KWD)',
-      nameAr: 'كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي',
+      nameAr: 'كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي (30)',
       category: 'employer',
     },
     {
       id: 'GCCRPT40',
       name: 'GCC Employers Creditors/Debtors',
-      nameAr: 'كشف لأصحاب الأعمال الخليجيين بفصل الدائن والمدين',
+      nameAr: 'كشف لأصحاب الأعمال الخليجيين بفصل الدائن والمدين (40)',
       category: 'employer',
     },
     {
       id: 'GCCRPT100',
       name: 'Statistical Report for All GCC Employers',
-      nameAr: 'كتاب إحصائي لجميع أصحاب الأعمال الخليجيين',
+      nameAr: 'كتاب احصائي لجميع أصحاب الأعمال الخليجيين (100)',
       category: 'employer',
     },
     {
       id: 'GCCRPT120',
       name: 'Registrants Count by Activity Status',
-      nameAr: 'كشف عدد المسجلين تحت صاحب عمل خليجي',
+      nameAr: 'كشف عدد المسجلين تحت صاحب عمل خليجي بإختلاف فعالية السجل (120)',
       category: 'employer',
     },
     {
       id: 'GCCRPT130',
       name: 'GCC Employers Debtors Report',
-      nameAr: 'كشف لأصحاب الأعمال الخليجيين المدينين',
+      nameAr:
+        'كشف لأصحاب الأعمال الخليجيين من لديهم كويتيين بالعملة الخليجية (130)',
       category: 'employer',
     },
     {
       id: 'GCCRPT170',
       name: 'Terminated Employees Report',
-      nameAr: 'كشف لأصحاب الأعمال المنتهية خدمات المؤمن عليهم',
+      nameAr:
+        'كشف لأصحاب الأعمال الخليجيين المنتهية خدمات المؤمن عليهم لديهم حتى تاريخ (170)',
       category: 'employer',
     },
     {
       id: 'GCCRPTPF9',
       name: 'GCC Employers List',
-      nameAr: 'كشف أصحاب الأعمال الخليجيين',
+      nameAr: 'كشف لأصحاب الأعمال الخليجيين (PF9)',
       category: 'employer',
     },
 
@@ -92,19 +95,19 @@ export class GCCReportsComponent implements OnInit {
     {
       id: 'GCCRPT150',
       name: 'Active Insured Members',
-      nameAr: 'كشف أسماء المؤمن عليهم الفعالين',
+      nameAr: 'كشف أسماء المؤمن عليهم الفعالين (150)',
       category: 'employee',
     },
     {
       id: 'GCCRPTPF1',
       name: 'GCC Registrants by Country',
-      nameAr: 'كشف المسجلين في دول مجلس التعاون',
+      nameAr: 'كشف المسجلين في دول مجلس التعاون (PF1)',
       category: 'employee',
     },
     {
       id: 'GCCRPTPF7',
       name: 'Registrants Under GCC Employer',
-      nameAr: 'كشف المسجلين لدى صاحب عمل خليجي',
+      nameAr: 'كشف المسجلين لدى صاحب عمل خليجي (PF7)',
       category: 'employee',
     },
 
@@ -112,19 +115,19 @@ export class GCCReportsComponent implements OnInit {
     {
       id: 'GCCRPT3132',
       name: 'Subscriptions After April 1st',
-      nameAr: 'كشف مبالغ الإشتراكات بعد الأول من ابريل',
+      nameAr: 'كشف مبالغ الإشتراكات بعد الأول من ابريل (3132)',
       category: 'financial',
     },
     {
       id: 'GCCRPT3334',
       name: 'Subscriptions Before April 1st 2022',
-      nameAr: 'كشف مبالغ الإشتراكات قبل الأول من ابريل 2022',
+      nameAr: 'كشف مبالغ الإشتراكات قبل الأول من ابريل 2022 (3334)',
       category: 'financial',
     },
     {
       id: 'GCCRPT515354',
       name: 'Paid Amounts After April 1st 2022',
-      nameAr: 'كشف المبالغ المسددة بعد الأول من ابريل 2022',
+      nameAr: 'كشف المبالغ المسددة بعد الأول من ابريل 2022 (515354)',
       category: 'financial',
     },
 
@@ -132,7 +135,7 @@ export class GCCReportsComponent implements OnInit {
     {
       id: 'CMYGC009',
       name: 'Regulatory Files - Protection Extension',
-      nameAr: 'كشف الملفات الرقابية لنظام مد الحماية',
+      nameAr: 'كشف الملفات الرقابية لنظام مد الحماية (009)',
       category: 'special',
     },
     {
@@ -191,7 +194,9 @@ export class GCCReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportForm.get('reportType')?.valueChanges.subscribe((reportType) => {
-      this.updateFormValidators(reportType);
+      if (reportType) {
+        this.updateFormValidators(reportType);
+      }
     });
   }
 
@@ -208,19 +213,22 @@ export class GCCReportsComponent implements OnInit {
     });
   }
 
+  // Update the createEmployerInfoForm method
   private createEmployerInfoForm(): FormGroup {
     return this.fb.group({
       civilId: ['', Validators.required],
-      regNum: ['', [Validators.required, Validators.pattern(/^[8][0-9]{6}$/)]],
+      regNum: ['', [Validators.required, Validators.pattern(/^[0-9]{7}$/)]],
     });
   }
 
+  // Update the updateFormValidators method
   private updateFormValidators(reportType: string): void {
     // Reset all validators
     Object.keys(this.reportForm.controls).forEach((key) => {
       if (key !== 'reportType') {
         this.reportForm.get(key)?.clearValidators();
-        this.reportForm.get(key)?.updateValueAndValidity();
+        // Add { emitEvent: false } to prevent triggering valueChanges
+        this.reportForm.get(key)?.updateValueAndValidity({ emitEvent: false });
       }
     });
 
@@ -246,7 +254,7 @@ export class GCCReportsComponent implements OnInit {
           .get('regNum')
           ?.setValidators([
             Validators.required,
-            Validators.pattern(/^[8][0-9]{6}$/),
+            Validators.pattern(/^[0-9]{7}$/),
           ]);
         this.reportForm.get('startDate')?.setValidators(Validators.required);
         break;
@@ -255,10 +263,30 @@ export class GCCReportsComponent implements OnInit {
         break;
     }
 
-    // Update validity
+    // Update validity with { emitEvent: false } to prevent infinite loop
     Object.keys(this.reportForm.controls).forEach((key) => {
-      this.reportForm.get(key)?.updateValueAndValidity();
+      this.reportForm.get(key)?.updateValueAndValidity({ emitEvent: false });
     });
+  }
+
+  getReportNumber(reportId: string): string {
+    // Extract numbers from report ID
+    const match = reportId.match(/\d+/);
+    if (match) {
+      return match[0];
+    }
+
+    // For special reports without numbers
+    switch (reportId) {
+      case 'KwtQtrActive':
+        return 'QTR-A';
+      case 'KwtQtrInactive':
+        return 'QTR-I';
+      case 'KwtKsaActive':
+        return 'KSA';
+      default:
+        return reportId;
+    }
   }
 
   generateReport(): void {
@@ -272,22 +300,28 @@ export class GCCReportsComponent implements OnInit {
     const reportType = formValue.reportType;
 
     let reportObservable;
+    let fileName = '';
 
     switch (reportType) {
       case 'GCCRPT20':
         reportObservable = this.gccService.getGCCRPT20(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية ${new Date().toLocaleDateString()}.zip`;
         break;
       case 'GCCRPT30':
         reportObservable = this.gccService.getGCCRPT30(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي ${new Date().toLocaleDateString()}.zip`;
         break;
       case 'GCCRPT40':
         reportObservable = this.gccService.getGCCRPT40(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بفصل الدائن والمدين ${new Date().toLocaleDateString()}.zip`;
         break;
       case 'GCCRPT100':
         reportObservable = this.gccService.getGCCRPT100(formValue.date);
+        fileName = `كتاب إحصائي لجميع أصحاب الأعمال الخليجيين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT120':
         reportObservable = this.gccService.getGCCRPT120(formValue.date!);
+        fileName = `كشف عدد المسجلين تحت صاحب عمل خليجي ${new Date().toLocaleDateString()}.zip`;
         break;
       case 'GCCRPT130':
         reportObservable = this.gccService.getGCCRPT130(
@@ -295,18 +329,27 @@ export class GCCReportsComponent implements OnInit {
           formValue.countryCode!,
           formValue.date
         );
+        // Check if it's zip or xlsx based on country
+        const extension =
+          formValue.countryCode === 81 || formValue.countryCode === 84
+            ? '.zip'
+            : '.xlsx';
+        fileName = `كشف لأصحاب الأعمال الخليجيين المدينين ${new Date().toLocaleDateString()}${extension}`;
         break;
       case 'GCCRPT150':
         reportObservable = this.gccService.getGCCRPT150(
           formValue.stopDate!,
           formValue.startDate
         );
+        fileName = `كشف أسماء المؤمن عليهم الفعالين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT170':
         reportObservable = this.gccService.getGCCRPT170(formValue.date);
+        fileName = `كشف لأصحاب الأعمال المنتهية خدمات المؤمن عليهم ${new Date().toLocaleDateString()}.zip`;
         break;
       case 'GCCRPTPF1':
         reportObservable = this.gccService.getGCCRPTPF1(formValue.countryCode!);
+        fileName = `كشف المسجلين في دول مجلس التعاون ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPTPF7':
         reportObservable = this.gccService.getGCCRPTPF7(
@@ -314,30 +357,39 @@ export class GCCReportsComponent implements OnInit {
           formValue.startDate!,
           formValue.stopDate
         );
+        fileName = `كشف المسجلين لدى صاحب عمل خليجي ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPTPF9':
         reportObservable = this.gccService.getGCCRPTPF9();
+        fileName = `كشف أصحاب الأعمال الخليجيين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT3132':
         reportObservable = this.gccService.getGCCRPT3132();
+        fileName = `كشف مبالغ الإشتراكات بعد الأول من ابريل ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT3334':
         reportObservable = this.gccService.getGCCRPT3334();
+        fileName = `كشف مبالغ الإشتراكات قبل الأول من ابريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT515354':
         reportObservable = this.gccService.getGCCRPT515354();
+        fileName = `كشف المبالغ المسددة بعد الأول من ابريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'CMYGC009':
         reportObservable = this.gccService.getCMYGC009(formValue.amountKD!);
+        fileName = `كشف الملفات الرقابية لنظام مد الحماية ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'KwtQtrActive':
         reportObservable = this.gccService.getKwtQtrActiveDisclosure();
+        fileName = `المؤمن عليهم الكويتيين في قطر - الفعالين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'KwtQtrInactive':
         reportObservable = this.gccService.getKwtQtrInactiveDisclosure();
+        fileName = `المؤمن عليهم الكويتيين في قطر - غير الفعالين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'KwtKsaActive':
         reportObservable = this.gccService.getKwtKsaActiveDisclosure();
+        fileName = `أصحاب أعمال في السعودية ${new Date().toLocaleDateString()}.xlsx`;
         break;
       default:
         this.loading = false;
@@ -345,10 +397,9 @@ export class GCCReportsComponent implements OnInit {
     }
 
     reportObservable.pipe(finalize(() => (this.loading = false))).subscribe({
-      next: (blob) => {
-        const extension = this.fileDownloadService.getFileExtension(blob);
-        const filename = `${reportType}_${new Date().getTime()}${extension}`;
-        this.fileDownloadService.downloadFile(blob, filename);
+      next: (response: HttpResponse<Blob>) => {
+        // Use the hardcoded Arabic filename
+        this.fileDownloadService.downloadFile(response.body!, fileName);
         this.showSuccess('Report downloaded successfully');
       },
       error: (error) => {

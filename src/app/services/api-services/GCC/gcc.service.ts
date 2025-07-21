@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { BaseService } from '../base.service';
 import { DateUtils } from '../../../utils/DateUtils.class';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class GCCService extends BaseService {
@@ -11,11 +12,11 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT20(date?: Date): Observable<Blob> {
+  getGCCRPT20(date?: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT20', params, {
       Accept: 'application/x-zip-compressed',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -24,11 +25,11 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT30(date?: Date): Observable<Blob> {
+  getGCCRPT30(date?: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT30', params, {
       Accept: 'application/x-zip-compressed',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -37,11 +38,11 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT40(date?: Date): Observable<Blob> {
+  getGCCRPT40(date?: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT40', params, {
       Accept: 'application/x-zip-compressed',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -50,12 +51,12 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns Excel file containing the report
    */
-  getGCCRPT100(date?: Date): Observable<Blob> {
+  getGCCRPT100(date?: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT100', params, {
       Accept:
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -64,11 +65,11 @@ export class GCCService extends BaseService {
    * @param date Required date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT120(date: Date): Observable<Blob> {
+  getGCCRPT120(date: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT120', params, {
       Accept: 'application/x-zip-compressed',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -83,7 +84,7 @@ export class GCCService extends BaseService {
     balance: number,
     countryId: number,
     date?: Date
-  ): Observable<Blob> {
+  ): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     const acceptHeader =
       countryId === 81 || countryId === 84
@@ -92,7 +93,7 @@ export class GCCService extends BaseService {
 
     return this.getBlob(`GCC/GetGCCRPT130/${balance}/${countryId}`, params, {
       Accept: acceptHeader,
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -102,7 +103,10 @@ export class GCCService extends BaseService {
    * @param startDate Optional start date (defaults to 2006-01-01)
    * @returns Excel file containing the report
    */
-  getGCCRPT150(stopDate: Date, startDate?: Date): Observable<Blob> {
+  getGCCRPT150(
+    stopDate: Date,
+    startDate?: Date
+  ): Observable<HttpResponse<Blob>> {
     const params: Record<string, string> = {
       StopDate: DateUtils.toDateString(stopDate),
     };
@@ -117,7 +121,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -126,11 +130,11 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT170(date?: Date): Observable<Blob> {
+  getGCCRPT170(date?: Date): Observable<HttpResponse<Blob>> {
     const params = DateUtils.createDateParams(date);
     return this.getBlob('GCC/GetGCCRPT170', params, {
       Accept: 'application/x-zip-compressed',
-    }).pipe(map((response) => response.body as Blob));
+    });
   }
 
   /**
@@ -139,7 +143,7 @@ export class GCCService extends BaseService {
    * @param countryCode Country code (81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
    * @returns Excel file containing the report
    */
-  getGCCRPTPF1(countryCode: number): Observable<Blob> {
+  getGCCRPTPF1(countryCode: number): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       `GCC/GetGCCRPTPF1/${countryCode}`,
       {},
@@ -147,7 +151,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -162,7 +166,7 @@ export class GCCService extends BaseService {
     regNum: number,
     startDate: Date,
     stopDate?: Date
-  ): Observable<Blob> {
+  ): Observable<HttpResponse<Blob>> {
     const params: Record<string, string> = stopDate
       ? { stopDate: DateUtils.toDateString(stopDate) }
       : {};
@@ -174,7 +178,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -182,7 +186,7 @@ export class GCCService extends BaseService {
    * Report of GCC employers
    * @returns Excel file containing the report
    */
-  getGCCRPTPF9(): Observable<Blob> {
+  getGCCRPTPF9(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetGCCRPTPF9',
       {},
@@ -190,7 +194,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -198,7 +202,7 @@ export class GCCService extends BaseService {
    * Report of subscription amounts for employers after April 1st
    * @returns Excel file containing the report
    */
-  getGCCRPT3132(): Observable<Blob> {
+  getGCCRPT3132(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetGCCRPT3132',
       {},
@@ -206,7 +210,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -214,7 +218,7 @@ export class GCCService extends BaseService {
    * Report of subscription amounts for employers before April 1st, 2022
    * @returns Excel file containing the report
    */
-  getGCCRPT3334(): Observable<Blob> {
+  getGCCRPT3334(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetGCCRPT3334',
       {},
@@ -222,7 +226,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -230,7 +234,7 @@ export class GCCService extends BaseService {
    * Report of amounts paid by employers for budget after April 1st, 2022
    * @returns Excel file containing the report
    */
-  getGCCRPT515354(): Observable<Blob> {
+  getGCCRPT515354(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetGCCRPT515354',
       {},
@@ -238,7 +242,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -247,7 +251,7 @@ export class GCCService extends BaseService {
    * @param amountKD Amount type (3=Bank deposit, 4=Deduction from pensioner, 9=Deduction from workforce)
    * @returns Excel file containing the report
    */
-  getCMYGC009(amountKD: number): Observable<Blob> {
+  getCMYGC009(amountKD: number): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       `GCC/GetCMYGC009/${amountKD}`,
       {},
@@ -255,7 +259,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -263,7 +267,7 @@ export class GCCService extends BaseService {
    * Report request for active Kuwaiti insured employees working in Qatar
    * @returns Excel file containing the report
    */
-  getKwtQtrActiveDisclosure(): Observable<Blob> {
+  getKwtQtrActiveDisclosure(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetKwtQtrActiveDisclosure',
       {},
@@ -271,7 +275,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -279,7 +283,7 @@ export class GCCService extends BaseService {
    * Report request for inactive Kuwaiti insured employees working in Qatar
    * @returns Excel file containing the report
    */
-  getKwtQtrInactiveDisclosure(): Observable<Blob> {
+  getKwtQtrInactiveDisclosure(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetKwtQtrInactiveDisclosure',
       {},
@@ -287,7 +291,7 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 
   /**
@@ -295,7 +299,7 @@ export class GCCService extends BaseService {
    * Employers in the Kingdom of Saudi Arabia
    * @returns Excel file containing the report
    */
-  getKwtKsaActiveDisclosure(): Observable<Blob> {
+  getKwtKsaActiveDisclosure(): Observable<HttpResponse<Blob>> {
     return this.getBlob(
       'GCC/GetKwtKsaActiveDisclosure',
       {},
@@ -303,6 +307,6 @@ export class GCCService extends BaseService {
         Accept:
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       }
-    ).pipe(map((response) => response.body as Blob));
+    );
   }
 }

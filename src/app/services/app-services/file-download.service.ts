@@ -3,31 +3,51 @@ import { HttpResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class FileDownloadService {
-  downloadFile(blob: Blob, filename: string): void {
+  downloadFile(blob: Blob, filename?: string): void {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = filename;
-    document.body.appendChild(link); // Some browsers require this
+
+    // Only set download attribute if filename is provided
+    // If empty or not provided, browser will use server's filename
+    if (filename) {
+      link.download = filename;
+    }
+
+    document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link); // Clean up
+    document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   }
 
   getFileNameFromResponse(response: HttpResponse<Blob>): string {
+    // Log headers for debugging
+    console.log('Response headers:', response.headers.keys());
+
     const contentDisposition = response.headers.get('content-disposition');
+    console.log('Content-Disposition header:', contentDisposition);
+
     if (contentDisposition) {
-      // Handle both filename and filename*
-      const fileNameMatch = contentDisposition.match(
-        /filename\*?=['"]?(?:UTF-\d['"]*)?([^;\r\n"']*)['"]?;?/
+      // First try to match filename*= (RFC 5987) for Unicode filenames
+      let fileNameMatch = contentDisposition.match(
+        /filename\*=(?:UTF-8'')?([^;]+)/i
       );
+
       if (fileNameMatch && fileNameMatch[1]) {
-        // Decode URI encoding if present
         try {
-          return decodeURIComponent(fileNameMatch[1].replace(/['"]/g, ''));
+          return decodeURIComponent(fileNameMatch[1]);
         } catch {
-          return fileNameMatch[1].replace(/['"]/g, '');
+          return fileNameMatch[1];
         }
+      }
+
+      // Then try regular filename=
+      fileNameMatch = contentDisposition.match(
+        /filename=["']?([^"';\n]+)["']?/i
+      );
+
+      if (fileNameMatch && fileNameMatch[1]) {
+        return fileNameMatch[1];
       }
     }
 
@@ -52,7 +72,7 @@ export class FileDownloadService {
   }
 
   // Optional: Add error handling
-  downloadFileWithErrorHandling(blob: Blob, filename: string): Promise<void> {
+  downloadFileWithErrorHandling(blob: Blob, filename?: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         this.downloadFile(blob, filename);
