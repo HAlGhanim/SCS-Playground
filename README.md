@@ -1,13 +1,5 @@
 # API Services Documentation - وثائق خدمات API
 
-## Table of Contents - جدول المحتويات
-
-1. [GCC Service - خدمة دول مجلس التعاون](#gcc-service)
-2. [GCC Reports Service - خدمة تقارير دول مجلس التعاون](#gcc-reports-service)
-3. [Employees Abroad Service - خدمة العاملين بالخارج](#employees-abroad-service)
-
----
-
 ## GCC Service - خدمة دول مجلس التعاون
 
 ### Report Generation Endpoints - نقاط نهاية إنشاء التقارير
