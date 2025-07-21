@@ -70,7 +70,7 @@
 - **Arabic**: كشف المسجلين في دول مجلس التعاون
 - **English**: Report of registrants in GCC countries
 - **Returns**: Excel file (.xlsx)
-- **Parameters**: Country code (81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
+- **Parameters**: Country code (0=KWT, 81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
 
 #### getGCCRPTPF7
 
