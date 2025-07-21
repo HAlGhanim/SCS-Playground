@@ -2,7 +2,7 @@
 
 ## GCC Service - خدمة دول مجلس التعاون
 
-### Report Generation Endpoints - نقاط نهاية إنشاء التقارير
+### Report Generation Endpoints
 
 #### getGCCRPT20
 
@@ -145,7 +145,7 @@
 
 ## GCC Reports Service - خدمة تقارير دول مجلس التعاون
 
-### Employer Information Endpoints - نقاط نهاية معلومات صاحب العمل
+### Employer Information Endpoints
 
 #### getGCCEmployerDueBalance
 
@@ -176,7 +176,7 @@
 
 ## Employees Abroad Service - خدمة العاملين بالخارج
 
-### Report Generation Endpoints - نقاط نهاية إنشاء التقارير
+### Report Generation Endpoints
 
 #### getEABMonthsDue
 
