@@ -236,13 +236,13 @@
 
 | Code | Arabic   | English      |
 | ---- | -------- | ------------ |
+| 0    | الكويت   | Kuwait       |
+| 81   | السعودية | Saudi Arabia |
 | 81   | السعودية | Saudi Arabia |
 | 82   | البحرين  | Bahrain      |
 | 83   | الإمارات | UAE          |
 | 84   | عمان     | Oman         |
 | 85   | قطر      | Qatar        |
-
----
 
 ## Registration Number Format - تنسيق رقم التسجيل
 
