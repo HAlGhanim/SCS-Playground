@@ -91,7 +91,7 @@
 
 #### getGCCRPT3132
 
-- **Arabic**: كشف مبالغ الإشتراكات لأصحاب الأعمال بعد الأول من ابريل
+- **Arabic**: كشف مبالغ الإشتراكات لأصحاب الأعمال بعد الأول من ابريل 2022
 - **English**: Report of subscription amounts for employers after April 1st
 - **Returns**: Excel file (.xlsx)
 - **Parameters**: None

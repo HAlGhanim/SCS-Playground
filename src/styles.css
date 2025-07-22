@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "mainFontEn";
+  src: url("../src/app/assets/fonts/English/Taminat_English.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "mainFontAr";
+  src: url("../src/app/assets/fonts/Arabic/Taminat_Arabic.otf.ttf")
+    format("truetype");
+}
+
+html {
+  font-family: "mainFontEn", "mainFontAr", sans-serif;
+}
+
+html[dir="ltr"] {
+  font-family: "mainFontEn", sans-serif;
+}
+
+html[dir="rtl"] {
+  font-family: "mainFontAr", sans-serif;
+}

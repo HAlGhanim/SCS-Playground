@@ -4,265 +4,269 @@
     <div class="bg-white shadow rounded-lg mb-6">
       <div class="px-6 py-4 border-b border-gray-200">
         <div class="flex justify-between items-center">
-          <h1 class="text-2xl font-semibold text-gray-900">GCC Reports</h1>
-          <span class="text-xl text-gray-600 font-arabic"
-            >تقارير دول مجلس التعاون الخليجي</span
+          <span
+            class="text-xl text-gray-600 font-taminat-ar w-full text-right"
+            dir="rtl"
+            >العاملين في دول مجلس التعاون</span
           >
         </div>
       </div>
     </div>
 
-    <!-- Tabs -->
+    <!-- Main Content -->
     <div class="bg-white shadow rounded-lg">
-      <div class="border-b border-gray-200">
-        <nav class="-mb-px flex">
-          <button
-            (click)="activeTab = 'reports'"
-            [class.border-blue-500]="activeTab === 'reports'"
-            [class.text-blue-600]="activeTab === 'reports'"
-            [class.border-transparent]="activeTab !== 'reports'"
-            [class.text-gray-500]="activeTab !== 'reports'"
-            class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors"
-          >
-            Generate Reports
-          </button>
-          <button
-            (click)="activeTab = 'employer'"
-            [class.border-blue-500]="activeTab === 'employer'"
-            [class.text-blue-600]="activeTab === 'employer'"
-            [class.border-transparent]="activeTab !== 'employer'"
-            [class.text-gray-500]="activeTab !== 'employer'"
-            class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors"
-          >
-            Employer Information
-          </button>
-        </nav>
-      </div>
-
       <!-- Success/Error Messages -->
-      <div *ngIf="showSuccessMessage" class="mx-6 mt-4">
+      @if (showSuccessMessage) {
+      <div class="mx-6 mt-4">
         <div
-          class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md"
+          class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md text-right font-taminat-ar"
+          dir="rtl"
         >
           {{ message }}
         </div>
       </div>
-      <div *ngIf="showErrorMessage" class="mx-6 mt-4">
+      } @if (showErrorMessage) {
+      <div class="mx-6 mt-4">
         <div
-          class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+          class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md text-right font-taminat-ar"
+          dir="rtl"
         >
           {{ message }}
         </div>
       </div>
+      }
 
-      <!-- Generate Reports Tab -->
-      <div *ngIf="activeTab === 'reports'" class="p-6">
+      <div class="p-6" dir="rtl">
         <form [formGroup]="reportForm" (ngSubmit)="generateReport()">
           <!-- Report Type Selection -->
           <div class="mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-              Report Type <span class="text-red-500">*</span>
+            <label
+              class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+            >
+              نوع التقرير <span class="text-red-500">*</span>
             </label>
-            <!-- Update the report type selection dropdown -->
             <select
               formControlName="reportType"
-              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-arabic text-right"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-taminat-ar text-right"
               dir="rtl"
             >
               <option value="">اختر نوع التقرير</option>
               <optgroup label="تقارير أصحاب الأعمال">
-                <option
-                  *ngFor="let report of getReportsByCategory('employer')"
-                  [value]="report.id"
-                >
-                  {{ report.nameAr }}
+                @for (report of getReportsByCategory('employer'); track
+                report.id; let i = $index) {
+                <option [value]="report.id">
+                  {{ i + 1 }}. {{ report.nameAr }}
                 </option>
+                }
               </optgroup>
               <optgroup label="تقارير الموظفين">
-                <option
-                  *ngFor="let report of getReportsByCategory('employee')"
-                  [value]="report.id"
-                >
+                @for (report of getReportsByCategory('employee'); track
+                report.id; let i = $index) {
+                <option [value]="report.id">
+                  {{ i + 1 + getReportsByCategory("employer").length }}.
                   {{ report.nameAr }}
                 </option>
+                }
               </optgroup>
               <optgroup label="التقارير المالية">
-                <option
-                  *ngFor="let report of getReportsByCategory('financial')"
-                  [value]="report.id"
-                >
-                  {{ report.nameAr }}
+                @for (report of getReportsByCategory('financial'); track
+                report.id; let i = $index) {
+                <option [value]="report.id">
+                  {{
+                    i +
+                      1 +
+                      getReportsByCategory("employer").length +
+                      getReportsByCategory("employee").length
+                  }}. {{ report.nameAr }}
                 </option>
+                }
               </optgroup>
               <optgroup label="تقارير خاصة">
-                <option
-                  *ngFor="let report of getReportsByCategory('special')"
-                  [value]="report.id"
-                >
-                  {{ report.nameAr }}
+                @for (report of getReportsByCategory('special'); track
+                report.id; let i = $index) {
+                <option [value]="report.id">
+                  {{
+                    i +
+                      1 +
+                      getReportsByCategory("employer").length +
+                      getReportsByCategory("employee").length +
+                      getReportsByCategory("financial").length
+                  }}. {{ report.nameAr }}
                 </option>
+                }
               </optgroup>
             </select>
           </div>
 
-          <!-- Rest of the form remains the same... -->
           <!-- Dynamic Fields -->
-          <div *ngIf="selectedReportType" class="space-y-4">
+          @if (selectedReportType) {
+          <div class="space-y-4">
             <!-- Date Field -->
-            <div
-              *ngIf="
-                selectedReportType !== 'GCCRPT150' &&
-                selectedReportType !== 'GCCRPTPF7'
-              "
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType !== 'GCCRPT150' && selectedReportType !==
+            'GCCRPTPF7') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Date
-                  <span *ngIf="isFieldRequired('date')" class="text-red-500"
-                    >*</span
-                  >
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  التاريخ @if (isFieldRequired('date')) {
+                  <span class="text-red-500">*</span>
+                  }
                 </label>
                 <input
                   type="date"
                   formControlName="date"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  dir="rtl"
                 />
               </div>
             </div>
+            }
 
             <!-- Start/Stop Dates -->
-            <div
-              *ngIf="
-                selectedReportType === 'GCCRPT150' ||
-                selectedReportType === 'GCCRPTPF7'
-              "
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType === 'GCCRPT150' || selectedReportType ===
+            'GCCRPTPF7') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Start Date
-                  <span
-                    *ngIf="isFieldRequired('startDate')"
-                    class="text-red-500"
-                    >*</span
-                  >
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  تاريخ البداية @if (isFieldRequired('startDate')) {
+                  <span class="text-red-500">*</span>
+                  }
                 </label>
                 <input
                   type="date"
                   formControlName="startDate"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  dir="rtl"
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Stop Date
-                  <span *ngIf="isFieldRequired('stopDate')" class="text-red-500"
-                    >*</span
-                  >
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  تاريخ النهاية @if (isFieldRequired('stopDate')) {
+                  <span class="text-red-500">*</span>
+                  }
                 </label>
                 <input
                   type="date"
                   formControlName="stopDate"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  dir="rtl"
                 />
               </div>
             </div>
+            }
 
             <!-- Registration Number -->
-            <div
-              *ngIf="selectedReportType === 'GCCRPTPF7'"
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType === 'GCCRPTPF7') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Registration Number <span class="text-red-500">*</span>
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  رقم التسجيل <span class="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   formControlName="regNum"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  dir="rtl"
                 />
-                <p class="mt-1 text-sm text-gray-500">Must be 7 digits</p>
+                <p
+                  class="mt-1 text-sm text-gray-500 text-right font-taminat-ar"
+                >
+                  يجب أن يكون 7 أرقام
+                </p>
               </div>
             </div>
+            }
 
             <!-- Balance -->
-            <div
-              *ngIf="selectedReportType === 'GCCRPT130'"
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType === 'GCCRPT130') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Minimum Balance <span class="text-red-500">*</span>
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  الحد الأدنى للرصيد <span class="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
                   formControlName="balance"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-right"
+                  dir="rtl"
                 />
               </div>
             </div>
+            }
 
             <!-- Country Code -->
-            <div
-              *ngIf="
-                selectedReportType === 'GCCRPT130' ||
-                selectedReportType === 'GCCRPTPF1'
-              "
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType === 'GCCRPT130' || selectedReportType ===
+            'GCCRPTPF1') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Country <span class="text-red-500">*</span>
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  الدولة <span class="text-red-500">*</span>
                 </label>
                 <select
                   formControlName="countryCode"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-taminat-ar text-right"
+                  dir="rtl"
                 >
-                  <option value="">Select a country</option>
-                  <option
-                    *ngFor="let country of gccCountries"
-                    [value]="country.code"
-                  >
-                    {{ country.nameEn }} - {{ country.nameAr }}
+                  <option value="">اختر الدولة</option>
+                  @for (country of gccCountries; track country.code; let i =
+                  $index) {
+                  <option [value]="country.code">
+                    {{ i + 1 }}. {{ country.nameAr }}
                   </option>
+                  }
                 </select>
               </div>
             </div>
+            }
 
             <!-- Amount Type -->
-            <div
-              *ngIf="selectedReportType === 'CMYGC009'"
-              class="grid grid-cols-1 md:grid-cols-2 gap-4"
-            >
+            @if (selectedReportType === 'CMYGC009') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Payment Type <span class="text-red-500">*</span>
+                <label
+                  class="block text-sm font-medium text-gray-700 mb-2 text-right font-taminat-ar"
+                >
+                  نوع الدفع <span class="text-red-500">*</span>
                 </label>
                 <select
                   formControlName="amountKD"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-taminat-ar text-right"
+                  dir="rtl"
                 >
-                  <option value="">Select payment type</option>
-                  <option *ngFor="let type of amountTypes" [value]="type.value">
-                    {{ type.label }} - {{ type.labelAr }}
+                  <option value="">اختر نوع الدفع</option>
+                  @for (type of amountTypes; track type.value; let i = $index) {
+                  <option [value]="type.value">
+                    {{ i + 1 }}. {{ type.labelAr }}
                   </option>
+                  }
                 </select>
               </div>
             </div>
+            }
           </div>
+          }
 
           <!-- Submit Button -->
           <div class="mt-6 flex justify-center">
             <button
               type="submit"
               [disabled]="reportForm.invalid || loading"
-              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed font-taminat-ar"
             >
+              @if (loading) {
               <svg
-                *ngIf="loading"
-                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                class="animate-spin ml-3 h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -281,9 +285,9 @@
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
+              } @else {
               <svg
-                *ngIf="!loading"
-                class="-ml-1 mr-2 h-5 w-5"
+                class="ml-2 h-5 w-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -295,159 +299,11 @@
                   d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
                 ></path>
               </svg>
-              Generate Report
+              } إنشاء التقرير
             </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Employer Information Tab remains the same... -->
-      <div *ngIf="activeTab === 'employer'" class="p-6">
-        <form [formGroup]="employerInfoForm" class="space-y-8">
-          <!-- Balance Inquiries -->
-          <div>
-            <h3 class="text-lg font-medium text-gray-900 mb-4">
-              Balance Inquiries
-            </h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Registration Number <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  formControlName="regNum"
-                  class="w-full max-w-md px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-                <p class="mt-1 text-sm text-gray-500">Must be 7 digits</p>
-              </div>
-              <div class="flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  (click)="getEmployerDueBalance()"
-                  [disabled]="
-                    employerInfoForm.get('regNum')?.invalid || loading
-                  "
-                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Due Balance
-                </button>
-                <button
-                  type="button"
-                  (click)="getMonthlyBalance()"
-                  [disabled]="
-                    employerInfoForm.get('regNum')?.invalid || loading
-                  "
-                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Monthly Balance
-                </button>
-              </div>
-            </div>
-
-            <!-- Balance Result -->
-            <div *ngIf="balanceInfo" class="mt-4 p-4 bg-gray-50 rounded-md">
-              <h4 class="font-medium text-gray-900 mb-2">
-                Balance Information
-              </h4>
-              <div class="space-y-1">
-                <p class="text-sm">
-                  <span class="font-medium">Registration Number:</span>
-                  {{ balanceInfo.regNum }}
-                </p>
-                <p class="text-sm">
-                  <span class="font-medium">Amount (English):</span>
-                  {{ balanceInfo.resultEn }}
-                </p>
-                <p class="text-sm font-arabic text-right">
-                  <span class="font-medium">المبلغ:</span>
-                  {{ balanceInfo.resultAr }}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-t border-gray-200 pt-8">
-            <!-- Employer Details -->
-            <h3 class="text-lg font-medium text-gray-900 mb-4">
-              Employer Details
-            </h3>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Civil ID <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  formControlName="civilId"
-                  placeholder="Enter Civil ID"
-                  class="w-full max-w-md px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              <button
-                type="button"
-                (click)="getEmployerInfo()"
-                [disabled]="employerInfoForm.get('civilId')?.invalid || loading"
-                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Get Employer Info
-              </button>
-            </div>
-
-            <!-- Employer Info Result -->
-            <div *ngIf="employerInfo" class="mt-4 p-4 bg-gray-50 rounded-md">
-              <h4 class="font-medium text-gray-900 mb-2">
-                Employer Information
-              </h4>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <p class="text-sm">
-                    <span class="font-medium">Registration Number:</span>
-                    {{ employerInfo.employerRegNum }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">Name:</span>
-                    {{ employerInfo.employerName }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">Civil ID:</span>
-                    {{ employerInfo.employerCivilId }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">Active Employees:</span>
-                    {{ employerInfo.erActiveEmployees }}
-                  </p>
-                </div>
-                <div>
-                  <p class="text-sm">
-                    <span class="font-medium">License Number:</span>
-                    {{ employerInfo.licNumber }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">License Date:</span>
-                    {{ employerInfo.busLicDate | date }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">License End Date:</span>
-                    {{ employerInfo.licEndDate | date }}
-                  </p>
-                  <p class="text-sm">
-                    <span class="font-medium">Location:</span>
-                    {{ employerInfo.erLocation }}
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<style>
-  .font-arabic {
-    font-family: "Arial", "Tahoma", sans-serif;
-    direction: rtl;
-  }
-</style>

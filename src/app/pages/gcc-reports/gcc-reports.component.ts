@@ -11,12 +11,9 @@ import {
   ReportType,
   GCCCountry,
   AmountType,
-  GCCBalanceResponse,
-  GCCEmployerInfo,
   ReportFormValue,
 } from '../../interfaces/gcc-reports/gcc-reports.interface';
 import { GCCService } from '../../services/api-services/GCC/gcc.service';
-import { GCCReportsService } from '../../services/api-services/GCC/gcc-reports.service';
 import { FileDownloadService } from '../../services/app-services/file-download.service';
 import { HttpResponse } from '@angular/common/http';
 
@@ -28,14 +25,10 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class GCCReportsComponent implements OnInit {
   reportForm: FormGroup;
-  employerInfoForm: FormGroup;
   loading = false;
-  activeTab: 'reports' | 'employer' = 'reports';
   showSuccessMessage = false;
   showErrorMessage = false;
   message = '';
-  employerInfo: GCCEmployerInfo | null = null;
-  balanceInfo: GCCBalanceResponse | null = null;
 
   // Report types
   reportTypes: ReportType[] = [
@@ -115,7 +108,7 @@ export class GCCReportsComponent implements OnInit {
     {
       id: 'GCCRPT3132',
       name: 'Subscriptions After April 1st',
-      nameAr: 'كشف مبالغ الإشتراكات بعد الأول من ابريل (3132)',
+      nameAr: 'كشف مبالغ الإشتراكات بعد الأول من ابريل 2022 (3132)',
       category: 'financial',
     },
     {
@@ -185,11 +178,9 @@ export class GCCReportsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private gccService: GCCService,
-    private gccReportsService: GCCReportsService,
     private fileDownloadService: FileDownloadService
   ) {
     this.reportForm = this.createReportForm();
-    this.employerInfoForm = this.createEmployerInfoForm();
   }
 
   ngOnInit(): void {
@@ -213,21 +204,11 @@ export class GCCReportsComponent implements OnInit {
     });
   }
 
-  // Update the createEmployerInfoForm method
-  private createEmployerInfoForm(): FormGroup {
-    return this.fb.group({
-      civilId: ['', Validators.required],
-      regNum: ['', [Validators.required, Validators.pattern(/^[0-9]{7}$/)]],
-    });
-  }
-
-  // Update the updateFormValidators method
   private updateFormValidators(reportType: string): void {
     // Reset all validators
     Object.keys(this.reportForm.controls).forEach((key) => {
       if (key !== 'reportType') {
         this.reportForm.get(key)?.clearValidators();
-        // Add { emitEvent: false } to prevent triggering valueChanges
         this.reportForm.get(key)?.updateValueAndValidity({ emitEvent: false });
       }
     });
@@ -269,29 +250,9 @@ export class GCCReportsComponent implements OnInit {
     });
   }
 
-  getReportNumber(reportId: string): string {
-    // Extract numbers from report ID
-    const match = reportId.match(/\d+/);
-    if (match) {
-      return match[0];
-    }
-
-    // For special reports without numbers
-    switch (reportId) {
-      case 'KwtQtrActive':
-        return 'QTR-A';
-      case 'KwtQtrInactive':
-        return 'QTR-I';
-      case 'KwtKsaActive':
-        return 'KSA';
-      default:
-        return reportId;
-    }
-  }
-
   generateReport(): void {
     if (this.reportForm.invalid) {
-      this.showError('Please fill all required fields');
+      this.showError('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
 
@@ -321,19 +282,17 @@ export class GCCReportsComponent implements OnInit {
         break;
       case 'GCCRPT120':
         reportObservable = this.gccService.getGCCRPT120(formValue.date!);
-        fileName = `كشف عدد المسجلين تحت صاحب عمل خليجي ${new Date().toLocaleDateString()}.zip`;
+        fileName = `كشف عدد المسجلين تحت صاحب عمل خليجي ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT130':
+        const countryCode = Number(formValue.countryCode);
         reportObservable = this.gccService.getGCCRPT130(
           formValue.balance!,
-          formValue.countryCode!,
+          countryCode!,
           formValue.date
         );
-        // Check if it's zip or xlsx based on country
         const extension =
-          formValue.countryCode === 81 || formValue.countryCode === 84
-            ? '.zip'
-            : '.xlsx';
+          countryCode === 81 || countryCode === 84 ? '.zip' : '.xlsx';
         fileName = `كشف لأصحاب الأعمال الخليجيين المدينين ${new Date().toLocaleDateString()}${extension}`;
         break;
       case 'GCCRPT150':
@@ -345,7 +304,7 @@ export class GCCReportsComponent implements OnInit {
         break;
       case 'GCCRPT170':
         reportObservable = this.gccService.getGCCRPT170(formValue.date);
-        fileName = `كشف لأصحاب الأعمال المنتهية خدمات المؤمن عليهم ${new Date().toLocaleDateString()}.zip`;
+        fileName = `كشف لأصحاب الأعمال المنتهية خدمات المؤمن عليهم ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPTPF1':
         reportObservable = this.gccService.getGCCRPTPF1(formValue.countryCode!);
@@ -365,7 +324,7 @@ export class GCCReportsComponent implements OnInit {
         break;
       case 'GCCRPT3132':
         reportObservable = this.gccService.getGCCRPT3132();
-        fileName = `كشف مبالغ الإشتراكات بعد الأول من ابريل ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف مبالغ الإشتراكات بعد الأول من ابريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'GCCRPT3334':
         reportObservable = this.gccService.getGCCRPT3334();
@@ -398,84 +357,14 @@ export class GCCReportsComponent implements OnInit {
 
     reportObservable.pipe(finalize(() => (this.loading = false))).subscribe({
       next: (response: HttpResponse<Blob>) => {
-        // Use the hardcoded Arabic filename
         this.fileDownloadService.downloadFile(response.body!, fileName);
-        this.showSuccess('Report downloaded successfully');
+        this.showSuccess('تم تنزيل التقرير بنجاح');
       },
       error: (error) => {
         console.error('Error generating report:', error);
-        this.showError('Error generating report. Please try again.');
+        this.showError('حدث خطأ في إنشاء التقرير. يرجى المحاولة مرة أخرى.');
       },
     });
-  }
-
-  getEmployerDueBalance(): void {
-    if (this.employerInfoForm.get('regNum')?.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    const regNum = this.employerInfoForm.get('regNum')?.value;
-
-    this.gccReportsService
-      .getGCCEmployerDueBalance(regNum)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          this.balanceInfo = response;
-          this.showSuccess('Balance retrieved successfully');
-        },
-        error: (error) => {
-          console.error('Error fetching balance:', error);
-          this.showError('Error fetching balance');
-        },
-      });
-  }
-
-  getMonthlyBalance(): void {
-    if (this.employerInfoForm.get('regNum')?.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    const regNum = this.employerInfoForm.get('regNum')?.value;
-
-    this.gccReportsService
-      .getGCCMonthlyBalanceAccount(regNum)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          this.balanceInfo = response;
-          this.showSuccess('Monthly balance retrieved successfully');
-        },
-        error: (error) => {
-          console.error('Error fetching balance:', error);
-          this.showError('Error fetching balance');
-        },
-      });
-  }
-
-  getEmployerInfo(): void {
-    if (this.employerInfoForm.get('civilId')?.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    const civilId = this.employerInfoForm.get('civilId')?.value;
-
-    this.gccReportsService
-      .getGccEmployerInfo(civilId)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (response) => {
-          this.employerInfo = response;
-          this.showSuccess('Employer info retrieved successfully');
-        },
-        error: (error) => {
-          console.error('Error fetching employer info:', error);
-          this.showError('Error fetching employer info');
-        },
-      });
   }
 
   private showSuccess(message: string): void {
