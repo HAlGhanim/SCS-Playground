@@ -9,10 +9,6 @@ export const environment = {
   scsbackendUrl: 'https://websvcs01.pifss.devlocal/',
   // pifssApiDocUrl: 'http://192.168.101.192:3000/toPDF/',
   pifssApiKey: '+~^HaKocPIFSS0F#C+KGCCRPTAPI5',
-  accountApiKey:
-    '19c771d93b32bbc762015b0b2a91b9bdb178c1841bcc0522617b08cbc52ac047',
-  accountApiKeySecret:
-    '6a0a922b61ef20b1aec36f3e5523d5656b78d1fb7e954d7f91e4b0eda09364d2',
   endpoints: {
     certificates: 'certificates/',
     unenrolledData: 'unenrolledData/',

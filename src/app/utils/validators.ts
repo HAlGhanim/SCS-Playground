@@ -1,4 +1,3 @@
-// utils/validators.ts
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
@@ -132,9 +131,6 @@ export class CustomValidators {
     };
   }
 }
-
-// utils/validation-messages.ts
-// utils/validation-messages.ts
 export const VALIDATION_MESSAGES = {
   required: 'هذا الحقل مطلوب',
   email: 'يرجى إدخال بريد إلكتروني صحيح',
@@ -156,7 +152,6 @@ export const VALIDATION_MESSAGES = {
   fileSize: 'حجم الملف كبير جداً. الحد الأقصى: {maxSize} ميجابايت',
 };
 
-// utils/form-helpers.ts
 export class FormHelpers {
   // Get error message for a form control
   static getErrorMessage(
