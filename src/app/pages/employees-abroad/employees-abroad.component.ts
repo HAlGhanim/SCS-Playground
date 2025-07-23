@@ -20,6 +20,7 @@ import {
 } from '../../components/index';
 import { EAB_REPORT_TYPES } from '../../interfaces/index';
 import { MessageService } from '../../services/index';
+import { CustomValidators, FormHelpers } from '../../utils/validators';
 
 @Component({
   selector: 'app-employees-abroad',
@@ -34,108 +35,7 @@ import { MessageService } from '../../services/index';
     ReportContainerComponent,
     CardComponent,
   ],
-  template: `
-    <app-report-container>
-      <app-page-header [title]="'العاملين بالخارج'"></app-page-header>
-
-      <app-card>
-        <app-alert
-          [show]="
-            messageService.isVisible() &&
-            messageService.messageType() === 'success'
-          "
-          [type]="'success'"
-          [message]="messageService.messageText()"
-        ></app-alert>
-
-        <app-alert
-          [show]="
-            messageService.isVisible() &&
-            messageService.messageType() === 'error'
-          "
-          [type]="'error'"
-          [message]="messageService.messageText()"
-        ></app-alert>
-
-        <div class="p-6">
-          <form [formGroup]="eabForm" (ngSubmit)="generateEabReport()">
-            <!-- Report Type Selection -->
-            <app-form-field
-              [label]="'نوع التقرير'"
-              [required]="true"
-              [containerClass]="'mb-6'"
-            >
-              <select
-                formControlName="reportType"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-              >
-                <option value="">اختر نوع التقرير</option>
-                @for (report of eabReportTypes; track report.id; let i = $index)
-                {
-                <option [value]="report.id">
-                  {{ i + 1 }}. {{ report.name }}
-                </option>
-                }
-              </select>
-            </app-form-field>
-
-            <!-- Dynamic Fields -->
-            @if (selectedEabReportType) {
-            <div class="space-y-4">
-              <!-- Due Date for most reports -->
-              @if (selectedEabReportType !== 'cf020') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'التاريخ المستحق'"
-                  [required]="isEabFieldRequired('dueDate')"
-                >
-                  <input
-                    type="date"
-                    formControlName="dueDate"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Start/End FY for CF020 -->
-              @if (selectedEabReportType === 'cf020') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'بداية السنة المالية'"
-                  [required]="isEabFieldRequired('startFY')"
-                >
-                  <input
-                    type="date"
-                    formControlName="startFY"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-                <app-form-field
-                  [label]="'نهاية السنة المالية'"
-                  [required]="isEabFieldRequired('endFY')"
-                >
-                  <input
-                    type="date"
-                    formControlName="endFY"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-            </div>
-            }
-
-            <app-button
-              [loading]="loading"
-              [disabled]="eabForm.invalid"
-              [text]="'إنشاء التقرير'"
-            ></app-button>
-          </form>
-        </div>
-      </app-card>
-    </app-report-container>
-  `,
+  templateUrl: `./employees-abroad.component.html`,
 })
 export class EmployeesAbroadComponent implements OnInit {
   eabForm: FormGroup;
@@ -162,7 +62,7 @@ export class EmployeesAbroadComponent implements OnInit {
   private createEabForm(): FormGroup {
     return this.fb.group({
       reportType: ['', Validators.required],
-      dueDate: [null, Validators.required],
+      dueDate: [null],
       startFY: [null],
       endFY: [null],
     });
@@ -174,10 +74,17 @@ export class EmployeesAbroadComponent implements OnInit {
     this.eabForm.get('startFY')?.clearValidators();
     this.eabForm.get('endFY')?.clearValidators();
 
+    // Clear form-level validators
+    this.eabForm.clearValidators();
+
     if (reportType === 'cf020') {
       this.eabForm.get('dueDate')?.clearValidators();
       this.eabForm.get('startFY')?.setValidators(Validators.required);
       this.eabForm.get('endFY')?.setValidators(Validators.required);
+      // Add date range validator at form level
+      this.eabForm.setValidators(
+        CustomValidators.dateRange('startFY', 'endFY')
+      );
     } else {
       this.eabForm.get('dueDate')?.setValidators(Validators.required);
       this.eabForm.get('startFY')?.clearValidators();
@@ -188,11 +95,13 @@ export class EmployeesAbroadComponent implements OnInit {
     this.eabForm.get('dueDate')?.updateValueAndValidity({ emitEvent: false });
     this.eabForm.get('startFY')?.updateValueAndValidity({ emitEvent: false });
     this.eabForm.get('endFY')?.updateValueAndValidity({ emitEvent: false });
+    this.eabForm.updateValueAndValidity({ emitEvent: false });
   }
 
   generateEabReport(): void {
     if (this.eabForm.invalid) {
-      this.messageService.showError('يرجى ملء جميع الحقول المطلوبة');
+      FormHelpers.markFormGroupTouched(this.eabForm);
+      this.messageService.showError('يرجى ملء جميع الحقول المطلوبة بشكل صحيح');
       return;
     }
 
@@ -206,41 +115,54 @@ export class EmployeesAbroadComponent implements OnInit {
     switch (reportType) {
       case 'monthsDue':
         reportObservable = this.eabService.getEABMonthsDue(formValue.dueDate);
-        fileName = `كشف عدد الأشهر المستحقة ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف عدد الأشهر المستحقة ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       case 'inactiveCreditors':
         reportObservable = this.eabService.getEABInActiveCreditors(
           formValue.dueDate
         );
-        fileName = `كشف غير فعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف غير فعالين - رصيد دائن ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       case 'inactiveDebtors':
         reportObservable = this.eabService.getEABInActiveDeptors(
           formValue.dueDate
         );
-        fileName = `كشف غير فعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف غير فعالين - رصيد مدين ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       case 'activeCreditors':
         reportObservable = this.eabService.getEABActiveCreditors(
           formValue.dueDate
         );
-        fileName = `كشف فعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف فعالين - رصيد دائن ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       case 'activeDebtors':
         reportObservable = this.eabService.getEABActiveDeptors(
           formValue.dueDate
         );
-        fileName = `كشف فعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف فعالين - رصيد مدين ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       case 'cf020':
         reportObservable = this.eabService.getCF020(
           formValue.startFY,
           formValue.endFY
         );
-        fileName = `كشف الملفات الرقابية CF020 ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف الملفات الرقابية CF020 ${new Date().toLocaleDateString(
+          'ar-SA'
+        )}.xlsx`;
         break;
       default:
         this.loading = false;
+        this.messageService.showError('نوع التقرير غير مدعوم');
         return;
     }
 
@@ -264,5 +186,19 @@ export class EmployeesAbroadComponent implements OnInit {
 
   get selectedEabReportType(): string {
     return this.eabForm.get('reportType')?.value || '';
+  }
+
+  // Helper methods for form validation
+  hasError(fieldName: string): boolean {
+    return FormHelpers.hasError(this.eabForm.get(fieldName), fieldName);
+  }
+
+  getError(fieldName: string): string {
+    // Handle form-level errors
+    if (fieldName === 'dateRange' && this.eabForm.hasError('dateRange')) {
+      return 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية';
+    }
+
+    return FormHelpers.getErrorMessage(this.eabForm.get(fieldName), fieldName);
   }
 }

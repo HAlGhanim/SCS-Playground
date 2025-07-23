@@ -134,6 +134,7 @@ export class CustomValidators {
 }
 
 // utils/validation-messages.ts
+// utils/validation-messages.ts
 export const VALIDATION_MESSAGES = {
   required: 'هذا الحقل مطلوب',
   email: 'يرجى إدخال بريد إلكتروني صحيح',

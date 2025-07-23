@@ -5,15 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-alert',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    @if (show()) {
-    <div class="mx-6 mt-4">
-      <div [ngClass]="alertClasses()" class="border px-4 py-3 rounded-md">
-        {{ message() }}
-      </div>
-    </div>
-    }
-  `,
+  templateUrl: `./alert.component.html`,
 })
 export class AlertComponent {
   show = input(false);

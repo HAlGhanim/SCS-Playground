@@ -6,33 +6,7 @@ import { NgControl } from '@angular/forms';
   selector: 'app-form-field',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div [ngClass]="containerClass()">
-      @if (label()) {
-      <label
-        [for]="fieldId()"
-        class="block text-sm font-medium text-gray-700 mb-2"
-      >
-        {{ label() }}
-        @if (required()) {
-        <span class="text-red-500">*</span>
-        }
-      </label>
-      }
-
-      <ng-content></ng-content>
-
-      @if (hint() && !showError()) {
-      <p class="mt-1 text-sm text-gray-500">
-        {{ hint() }}
-      </p>
-      } @if (showError() && errorMessage()) {
-      <p class="mt-1 text-sm text-red-600">
-        {{ errorMessage() }}
-      </p>
-      }
-    </div>
-  `,
+  templateUrl: `./form-field.component.html`,
   styles: [
     `
       :host {

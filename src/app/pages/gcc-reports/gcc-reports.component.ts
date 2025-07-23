@@ -7,19 +7,28 @@ import {
   Validators,
 } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { FileDownloadService } from '../../services/app-services/file-download.service';
-import { GCCService } from '../../services/api-services/GCC/gcc.service';
 import { HttpResponse } from '@angular/common/http';
-import { AlertComponent } from '../../components/alert/alert.component';
-import { PageHeaderComponent } from '../../components/page-header/page-header.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { FormFieldComponent } from '../../components/forms/form-field/form-field.component';
-import { ReportContainerComponent } from '../../components/report-container/report-container.component';
-import { CardComponent } from '../../components/card/card.component';
-import { GCC_REPORT_TYPES } from '../../interfaces/gcc/gcc-reports.interface';
-import { GCC_COUNTRIES } from '../../interfaces/gcc/gcc-countries.interface';
-import { AMOUNT_TYPES } from '../../interfaces/gcc/amounts.interface';
-import { MessageService } from '../../services/app-services/message.service';
+import {
+  AlertComponent,
+  PageHeaderComponent,
+  ButtonComponent,
+  FormFieldComponent,
+  ReportContainerComponent,
+  CardComponent,
+} from '../../components/index';
+import {
+  GCC_REPORT_TYPES,
+  GCC_COUNTRIES,
+  AMOUNT_TYPES,
+  ReportFormValue,
+} from '../../interfaces/index';
+import {
+  GCCService,
+  MessageService,
+  FileDownloadService,
+} from '../../services/index';
+import { CustomValidators, FormHelpers } from '../../utils/validators';
+
 @Component({
   selector: 'app-gcc-reports',
   standalone: true,
@@ -33,224 +42,7 @@ import { MessageService } from '../../services/app-services/message.service';
     ReportContainerComponent,
     CardComponent,
   ],
-  template: `
-    <app-report-container>
-      <app-page-header
-        [title]="'العاملين في دول مجلس التعاون'"
-      ></app-page-header>
-
-      <app-card>
-        <app-alert
-          [show]="
-            messageService.isVisible() &&
-            messageService.messageType() === 'success'
-          "
-          [type]="'success'"
-          [message]="messageService.messageText()"
-        ></app-alert>
-
-        <app-alert
-          [show]="
-            messageService.isVisible() &&
-            messageService.messageType() === 'error'
-          "
-          [type]="'error'"
-          [message]="messageService.messageText()"
-        ></app-alert>
-
-        <div class="p-6">
-          <form [formGroup]="reportForm" (ngSubmit)="generateReport()">
-            <!-- Report Type Selection -->
-            <app-form-field
-              [label]="'نوع التقرير'"
-              [required]="true"
-              [containerClass]="'mb-6'"
-            >
-              <select
-                formControlName="reportType"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-              >
-                <option value="">اختر نوع التقرير</option>
-                <optgroup label="تقارير أصحاب الأعمال">
-                  @for (report of getReportsByCategory('employer'); track
-                  report.id; let i = $index) {
-                  <option [value]="report.id">
-                    {{ i + 1 }}. {{ report.nameAr }}
-                  </option>
-                  }
-                </optgroup>
-                <optgroup label="تقارير الموظفين">
-                  @for (report of getReportsByCategory('employee'); track
-                  report.id; let i = $index) {
-                  <option [value]="report.id">
-                    {{ i + 1 + getReportsByCategory('employer').length }}.
-                    {{ report.nameAr }}
-                  </option>
-                  }
-                </optgroup>
-                <optgroup label="التقارير المالية">
-                  @for (report of getReportsByCategory('financial'); track
-                  report.id; let i = $index) {
-                  <option [value]="report.id">
-                    {{
-                      i +
-                        1 +
-                        getReportsByCategory('employer').length +
-                        getReportsByCategory('employee').length
-                    }}. {{ report.nameAr }}
-                  </option>
-                  }
-                </optgroup>
-                <optgroup label="تقارير خاصة">
-                  @for (report of getReportsByCategory('special'); track
-                  report.id; let i = $index) {
-                  <option [value]="report.id">
-                    {{
-                      i +
-                        1 +
-                        getReportsByCategory('employer').length +
-                        getReportsByCategory('employee').length +
-                        getReportsByCategory('financial').length
-                    }}. {{ report.nameAr }}
-                  </option>
-                  }
-                </optgroup>
-              </select>
-            </app-form-field>
-
-            <!-- Dynamic Fields -->
-            @if (selectedReportType) {
-            <div class="space-y-4">
-              <!-- Date Field -->
-              @if (selectedReportType !== 'GCCRPT150' && selectedReportType !==
-              'GCCRPTPF7') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'التاريخ'"
-                  [required]="isFieldRequired('date')"
-                >
-                  <input
-                    type="date"
-                    formControlName="date"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Start/Stop Dates -->
-              @if (selectedReportType === 'GCCRPT150' || selectedReportType ===
-              'GCCRPTPF7') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'تاريخ البداية'"
-                  [required]="isFieldRequired('startDate')"
-                >
-                  <input
-                    type="date"
-                    formControlName="startDate"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-                <app-form-field
-                  [label]="'تاريخ النهاية'"
-                  [required]="isFieldRequired('stopDate')"
-                >
-                  <input
-                    type="date"
-                    formControlName="stopDate"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Registration Number -->
-              @if (selectedReportType === 'GCCRPTPF7') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'رقم التسجيل'"
-                  [required]="true"
-                  [hint]="'يجب أن يكون 7 أرقام'"
-                >
-                  <input
-                    type="text"
-                    formControlName="regNum"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Balance -->
-              @if (selectedReportType === 'GCCRPT130') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field
-                  [label]="'الحد الأدنى للرصيد'"
-                  [required]="true"
-                >
-                  <input
-                    type="number"
-                    formControlName="balance"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  />
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Country Code -->
-              @if (selectedReportType === 'GCCRPT130' || selectedReportType ===
-              'GCCRPTPF1') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field [label]="'الدولة'" [required]="true">
-                  <select
-                    formControlName="countryCode"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  >
-                    <option value="">اختر الدولة</option>
-                    @for (country of gccCountries; track country.code; let i =
-                    $index) {
-                    <option [value]="country.code">
-                      {{ i + 1 }}. {{ country.nameAr }}
-                    </option>
-                    }
-                  </select>
-                </app-form-field>
-              </div>
-              }
-
-              <!-- Amount Type -->
-              @if (selectedReportType === 'CMYGC009') {
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <app-form-field [label]="'نوع الدفع'" [required]="true">
-                  <select
-                    formControlName="amountKD"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                  >
-                    <option value="">اختر نوع الدفع</option>
-                    @for (type of amountTypes; track type.value; let i = $index)
-                    {
-                    <option [value]="type.value">
-                      {{ i + 1 }}. {{ type.labelAr }}
-                    </option>
-                    }
-                  </select>
-                </app-form-field>
-              </div>
-              }
-            </div>
-            }
-
-            <app-button
-              [loading]="loading"
-              [disabled]="reportForm.invalid"
-              [text]="'إنشاء التقرير'"
-            ></app-button>
-          </form>
-        </div>
-      </app-card>
-    </app-report-container>
-  `,
+  templateUrl: './gcc-reports.component.html',
 })
 export class GCCReportsComponent implements OnInit {
   reportForm: FormGroup;
@@ -300,6 +92,9 @@ export class GCCReportsComponent implements OnInit {
       }
     });
 
+    // Clear form-level validators
+    this.reportForm.clearValidators();
+
     // Set validators based on report type
     switch (reportType) {
       case 'GCCRPT120':
@@ -308,11 +103,18 @@ export class GCCReportsComponent implements OnInit {
       case 'GCCRPT130':
         this.reportForm
           .get('balance')
-          ?.setValidators([Validators.required, Validators.min(0)]);
+          ?.setValidators([
+            Validators.required,
+            CustomValidators.positiveNumber(),
+          ]);
         this.reportForm.get('countryCode')?.setValidators(Validators.required);
         break;
       case 'GCCRPT150':
         this.reportForm.get('stopDate')?.setValidators(Validators.required);
+        // Add date range validator at form level
+        this.reportForm.setValidators(
+          CustomValidators.dateRange('startDate', 'stopDate')
+        );
         break;
       case 'GCCRPTPF1':
         this.reportForm.get('countryCode')?.setValidators(Validators.required);
@@ -322,9 +124,13 @@ export class GCCReportsComponent implements OnInit {
           .get('regNum')
           ?.setValidators([
             Validators.required,
-            Validators.pattern(/^[0-9]{7}$/),
+            CustomValidators.gccRegistrationNumber(),
           ]);
         this.reportForm.get('startDate')?.setValidators(Validators.required);
+        // Add date range validator at form level if stopDate is provided
+        this.reportForm.setValidators(
+          CustomValidators.dateRange('startDate', 'stopDate')
+        );
         break;
       case 'CMYGC009':
         this.reportForm.get('amountKD')?.setValidators(Validators.required);
@@ -335,11 +141,13 @@ export class GCCReportsComponent implements OnInit {
     Object.keys(this.reportForm.controls).forEach((key) => {
       this.reportForm.get(key)?.updateValueAndValidity({ emitEvent: false });
     });
+    this.reportForm.updateValueAndValidity({ emitEvent: false });
   }
 
   generateReport(): void {
     if (this.reportForm.invalid) {
-      this.messageService.showError('يرجى ملء جميع الحقول المطلوبة');
+      FormHelpers.markFormGroupTouched(this.reportForm);
+      this.messageService.showError('يرجى ملء جميع الحقول المطلوبة بشكل صحيح');
       return;
     }
 
@@ -350,15 +158,106 @@ export class GCCReportsComponent implements OnInit {
     let reportObservable;
     let fileName = '';
 
-    // [Same switch case logic as original but with messageService instead of showSuccess/showError]
     switch (reportType) {
-      case 'GCCRPT20':
-        reportObservable = this.gccService.getGCCRPT20(formValue.date);
-        fileName = `كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية ${new Date().toLocaleDateString()}.zip`;
+      // case 'GCCRPT20':
+      //   reportObservable = this.gccService.getGCCRPT20(formValue.date);
+      //   fileName = `كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية ${new Date().toLocaleDateString()}.zip`;
+      //   break;
+      // case 'GCCRPT30':
+      //   reportObservable = this.gccService.getGCCRPT30(formValue.date);
+      //   fileName = `كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي ${new Date().toLocaleDateString()}.zip`;
+      //   break;
+      case 'GCCRPT40':
+        reportObservable = this.gccService.getGCCRPT40(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بفصل الدائن والمدين ${new Date().toLocaleDateString()}.zip`;
         break;
-      // ... [All other cases remain the same]
+      case 'GCCRPT100':
+        reportObservable = this.gccService.getGCCRPT100(formValue.date);
+        fileName = `كتاب إحصائي لجميع أصحاب الأعمال الخليجيين ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT120':
+        reportObservable = this.gccService.getGCCRPT120(formValue.date!);
+        fileName = `كشف عدد المسجلين تحت صاحب عمل خليجي ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT130':
+        reportObservable = this.gccService.getGCCRPT130(
+          formValue.balance!,
+          formValue.countryCode!,
+          formValue.date
+        );
+        const countryName =
+          this.gccCountries.find((c) => c.code === formValue.countryCode)
+            ?.nameAr || '';
+        fileName = `كشف لأصحاب الأعمال الخليجيين ${countryName} ${new Date().toLocaleDateString()}.${
+          [81, 84].includes(formValue.countryCode!) ? 'zip' : 'xlsx'
+        }`;
+        break;
+      case 'GCCRPT150':
+        reportObservable = this.gccService.getGCCRPT150(
+          formValue.stopDate!,
+          formValue.startDate
+        );
+        fileName = `كشف أسماء المؤمن عليهم الفعالين ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT170':
+        reportObservable = this.gccService.getGCCRPT170(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين المنتهية خدمات المؤمن عليهم ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPTPF1':
+        reportObservable = this.gccService.getGCCRPTPF1(formValue.countryCode!);
+        const countryNamePF1 =
+          this.gccCountries.find((c) => c.code === formValue.countryCode)
+            ?.nameAr || '';
+        fileName = `كشف المسجلين في ${countryNamePF1} ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPTPF7':
+        reportObservable = this.gccService.getGCCRPTPF7(
+          formValue.regNum!,
+          formValue.startDate!,
+          formValue.stopDate
+        );
+        fileName = `كشف المسجلين لدى صاحب عمل خليجي ${
+          formValue.regNum
+        } ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPTPF9':
+        reportObservable = this.gccService.getGCCRPTPF9();
+        fileName = `كشف أصحاب الأعمال الخليجيين ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT3132':
+        reportObservable = this.gccService.getGCCRPT3132();
+        fileName = `كشف مبالغ الإشتراكات بعد أبريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT3334':
+        reportObservable = this.gccService.getGCCRPT3334();
+        fileName = `كشف مبالغ الإشتراكات قبل أبريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'GCCRPT515354':
+        reportObservable = this.gccService.getGCCRPT515354();
+        fileName = `كشف المبالغ المسددة بعد أبريل 2022 ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'CMYGC009':
+        reportObservable = this.gccService.getCMYGC009(formValue.amountKD!);
+        const amountTypeName =
+          this.amountTypes.find((t) => t.value === formValue.amountKD)
+            ?.labelAr || '';
+        fileName = `كشف الملفات الرقابية - ${amountTypeName} ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'KwtQtrActive':
+        reportObservable = this.gccService.getKwtQtrActiveDisclosure();
+        fileName = `المؤمن عليهم الكويتيين في قطر - الفعالين ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'KwtQtrInactive':
+        reportObservable = this.gccService.getKwtQtrInactiveDisclosure();
+        fileName = `المؤمن عليهم الكويتيين في قطر - غير الفعالين ${new Date().toLocaleDateString()}.xlsx`;
+        break;
+      case 'KwtKsaActive':
+        reportObservable = this.gccService.getKwtKsaActiveDisclosure();
+        fileName = `أصحاب أعمال في السعودية ${new Date().toLocaleDateString()}.xlsx`;
+        break;
       default:
         this.loading = false;
+        this.messageService.showError('نوع التقرير غير مدعوم');
         return;
     }
 
@@ -386,5 +285,22 @@ export class GCCReportsComponent implements OnInit {
 
   get selectedReportType(): string {
     return this.reportForm.get('reportType')?.value || '';
+  }
+
+  // Helper methods for form validation
+  hasError(fieldName: string): boolean {
+    return FormHelpers.hasError(this.reportForm.get(fieldName), fieldName);
+  }
+
+  getError(fieldName: string): string {
+    // Handle form-level errors
+    if (fieldName === 'dateRange' && this.reportForm.hasError('dateRange')) {
+      return 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية';
+    }
+
+    return FormHelpers.getErrorMessage(
+      this.reportForm.get(fieldName),
+      fieldName
+    );
   }
 }
