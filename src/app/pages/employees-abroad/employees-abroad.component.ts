@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -38,18 +38,14 @@ import { CustomValidators, FormHelpers } from '../../utils/validators';
   templateUrl: `./employees-abroad.component.html`,
 })
 export class EmployeesAbroadComponent implements OnInit {
-  eabForm: FormGroup;
+  private fb = inject(FormBuilder);
+  private eabService = inject(EmployeesAbroadService);
+  private fileDownloadService = inject(FileDownloadService);
+  public messageService = inject(MessageService);
+
   loading = false;
   eabReportTypes = EAB_REPORT_TYPES;
-
-  constructor(
-    private fb: FormBuilder,
-    private eabService: EmployeesAbroadService,
-    private fileDownloadService: FileDownloadService,
-    public messageService: MessageService
-  ) {
-    this.eabForm = this.createEabForm();
-  }
+  eabForm: FormGroup = this.createEabForm();
 
   ngOnInit(): void {
     this.eabForm.get('reportType')?.valueChanges.subscribe((reportType) => {

@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseService {
-  constructor(protected readonly _http: HttpClient) {}
+  protected readonly _http = inject(HttpClient);
 
   private readonly baseUrl: string = environment.endpoints.gcc.gccRpt;
 

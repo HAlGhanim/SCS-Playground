@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, throwError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,8 @@ export class AuthenticationService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
 
   login(data: AuthRequest): Observable<LoginResponse> {
     return this.http

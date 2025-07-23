@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -45,22 +45,16 @@ import { CustomValidators, FormHelpers } from '../../utils/validators';
   templateUrl: './gcc-reports.component.html',
 })
 export class GCCReportsComponent implements OnInit {
-  reportForm: FormGroup;
-  loading = false;
+  private fb = inject(FormBuilder);
+  private gccService = inject(GCCService);
+  private fileDownloadService = inject(FileDownloadService);
+  public messageService = inject(MessageService);
 
-  // Import constants
+  loading = false;
   reportTypes = GCC_REPORT_TYPES;
   gccCountries = GCC_COUNTRIES;
   amountTypes = AMOUNT_TYPES;
-
-  constructor(
-    private fb: FormBuilder,
-    private gccService: GCCService,
-    private fileDownloadService: FileDownloadService,
-    public messageService: MessageService
-  ) {
-    this.reportForm = this.createReportForm();
-  }
+  reportForm: FormGroup = this.createReportForm();
 
   ngOnInit(): void {
     this.reportForm.get('reportType')?.valueChanges.subscribe((reportType) => {
