@@ -1,5 +1,120 @@
 # API Services Documentation - وثائق خدمات API
 
+## Project Overview
+
+This is an Angular 19 standalone application for generating various reports for GCC (Gulf Cooperation Council) employees and Employees Abroad (EAB). The application features RTL support for Arabic language and uses Tailwind CSS for styling.
+
+## Project Flow
+
+```
+App Entry (main.ts)
+    ↓
+App Component
+    ↓
+Router → Pages
+    ├── GCC Reports Page (/reports/gcc)
+    └── Employees Abroad Page (/reports/eab)
+           ↓
+    Services (API calls)
+           ↓
+    File Download Service
+           ↓
+    Downloaded Report Files
+```
+
+### Request Flow with Interceptors
+
+```
+HTTP Request
+    ↓
+AuthInterceptor (adds API key)
+    ↓
+LoadingInterceptor (shows loading)
+    ↓
+RetryInterceptor (retry logic for GET)
+    ↓
+API Call
+    ↓
+ErrorInterceptor (error handling)
+    ↓
+Response/Error to Component
+```
+
+## Project Structure
+
+### Interceptors (`src/app/interceptors/`)
+
+1. **AuthInterceptor** - Adds PIFSS API key to all requests
+2. **ErrorInterceptor** - Handles HTTP errors with Arabic error messages
+3. **LoadingInterceptor** - Shows/hides loading indicator during requests
+4. **RetryInterceptor** - Automatically retries failed GET requests (3 attempts)
+
+### Pages (`src/app/pages/`)
+
+1. **GCC Reports Page** (`/gcc-reports`)
+   - Generates 17 different types of GCC reports
+   - Categories: Employer, Employee, Financial, Special reports
+   - Dynamic form fields based on report type
+
+2. **Employees Abroad Page** (`/employees-abroad`)
+   - Generates 6 different types of EAB reports
+   - Handles active/inactive employee reports
+   - CF020 regulatory files reports
+
+### Components (`src/app/components/`)
+
+- **Alert** - Displays success/error messages
+- **Button** - Submit button with loading state
+- **Card** - Container component for content
+- **Forms**:
+  - `FormField` - Field wrapper with label and error handling
+  - `FormInput` - Custom input component
+  - `FormSelect` - Custom select component
+- **Icons**:
+  - `PifssLogo` - Default logo
+  - `PifssLogoH` - Horizontal logo
+  - `PifssLogoV` - Vertical logo
+- **Navbar** - Navigation between GCC and EAB reports
+- **PageHeader** - Page title header
+- **ReportContainer** - Main container for report pages
+
+### Interfaces (`src/app/interfaces/`)
+
+1. **EAB Interfaces**:
+   - `EabReportType` - Types of EAB reports
+
+2. **GCC Interfaces**:
+   - `AmountType` - Payment types for CMYGC009 report
+   - `GCCCountry` - GCC country codes and names
+   - `ReportType` - GCC report types with categories
+   - `ReportFormValue` - Form data structure
+
+### Services (`src/app/services/`)
+
+#### API Services:
+1. **BaseService** - Base HTTP service with common methods
+2. **GCCService** - All GCC report API endpoints
+3. **EmployeesAbroadService** - All EAB report API endpoints
+4. **AuthenticationService** - Token management (placeholder)
+
+#### App Services:
+1. **FileDownloadService** - Handles file downloads with proper filenames
+2. **LoadingService** - Global loading state management
+3. **MessageService** - Success/error message management
+
+### Utils (`src/app/utils/`)
+
+1. **DateUtils** - Date formatting and validation utilities
+2. **CustomValidators** - Form validators:
+   - Kuwait Civil ID
+   - GCC Registration Number
+   - Date range validation
+   - Positive numbers
+   - Arabic/English text
+3. **FormHelpers** - Form error handling utilities
+4. **isTokenExpired** - JWT token validation
+5. **apiValidationError** - API error message extraction
+
 ## GCC Service - خدمة دول مجلس التعاون
 
 ### Report Generation Endpoints
@@ -143,37 +258,6 @@
 
 ---
 
-## GCC Reports Service - خدمة تقارير دول مجلس التعاون
-
-### Employer Information Endpoints
-
-#### getGCCEmployerDueBalance
-
-- **Arabic**: الرصيد المستحق لصاحب العمل الخليجي
-- **English**: Get GCC employer due balance
-- **Returns**: JSON object with balance in Arabic and English currencies
-- **Parameters**: Registration number (8000000-8999999)
-
-#### getGCCMonthlyBalanceAccount
-
-- **Arabic**: قيمة الاشتراك الشهري لصاحب العمل الخليجي
-- **English**: Get GCC employer monthly subscription amount
-- **Returns**: JSON object with monthly balance in Arabic and English currencies
-- **Parameters**: Registration number (8000000-8999999)
-
-#### getGccEmployerInfo
-
-- **Arabic**: بيانات صاحب العمل الخليجي
-- **English**: Get GCC employer information
-- **Returns**: JSON object with employer details including:
-  - Name and addresses
-  - License information
-  - Active employee count
-  - Business type and location
-- **Parameters**: GCC employer civil ID
-
----
-
 ## Employees Abroad Service - خدمة العاملين بالخارج
 
 ### Report Generation Endpoints
@@ -238,6 +322,15 @@
 ## Registration Number Format - تنسيق رقم التسجيل
 
 - Must be 7 digits
+
+## Technology Stack
+
+- **Frontend**: Angular 19 (Standalone)
+- **Styling**: Tailwind CSS with RTL support
+- **State Management**: Angular Signals
+- **HTTP**: Angular HttpClient with Interceptors
+- **Forms**: Reactive Forms with Custom Validators
+- **Fonts**: Taminat Arabic & English fonts
 
 ---
 
