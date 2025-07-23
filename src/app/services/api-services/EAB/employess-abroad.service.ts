@@ -1,21 +1,31 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BaseService } from '../base.service';
 import { DateUtils } from '../../../utils/DateUtils.class';
+import { BaseService } from '../base.service';
+import * as apiEndpoints from '../../../resources/api-endpoints.json';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesAbroadService extends BaseService {
+  private endpoints = apiEndpoints.eab.reports;
+
   /**
    * كشف للمؤمن عليهم العاملين بالخارج - عدد الأشهر المستحقة
    * Report for insured employees working abroad - number of months due
    * @param dueDate Due date as Date or string
    * @returns Excel file blob
    */
-  getEABMonthsDue(dueDate: Date | string): Observable<Blob> {
+  getEABMonthsDue(dueDate: Date | string): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.monthsDue;
     const dateStr = DateUtils.toDateString(dueDate);
-    return this.getBlob(`EAB/GetEABMonthsDue/${dateStr}`).pipe(
-      map((response) => response.body as Blob)
+    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
 
@@ -25,23 +35,40 @@ export class EmployeesAbroadService extends BaseService {
    * @param dueDate Due date as Date or string
    * @returns Excel file blob
    */
-  getEABInActiveCreditors(dueDate: Date | string): Observable<Blob> {
+  getEABInActiveCreditors(
+    dueDate: Date | string
+  ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.inActiveCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
-    return this.getBlob(`EAB/GetEABInActiveCreditors/${dateStr}`).pipe(
-      map((response) => response.body as Blob)
+    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
-
   /**
    * كشف للمؤمن عليهم العاملين بالخارج الغير فعالين - رصيد مدين
    * Report for inactive insured employees abroad - debtor balance
    * @param dueDate Due date as Date or string
    * @returns Excel file blob
    */
-  getEABInActiveDeptors(dueDate: Date | string): Observable<Blob> {
+  getEABInActiveDeptors(
+    dueDate: Date | string
+  ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.inActiveDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
-    return this.getBlob(`EAB/GetEABInActiveDeptors/${dateStr}`).pipe(
-      map((response) => response.body as Blob)
+    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
 
@@ -51,10 +78,19 @@ export class EmployeesAbroadService extends BaseService {
    * @param dueDate Due date as Date or string
    * @returns Excel file blob
    */
-  getEABActiveCreditors(dueDate: Date | string): Observable<Blob> {
+  getEABActiveCreditors(
+    dueDate: Date | string
+  ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.activeCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
-    return this.getBlob(`EAB/GetEABActiveCreditors/${dateStr}`).pipe(
-      map((response) => response.body as Blob)
+    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
 
@@ -64,10 +100,17 @@ export class EmployeesAbroadService extends BaseService {
    * @param dueDate Due date as Date or string
    * @returns Excel file blob
    */
-  getEABActiveDeptors(dueDate: Date | string): Observable<Blob> {
+  getEABActiveDeptors(dueDate: Date | string): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.activeDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
-    return this.getBlob(`EAB/GetEABActiveDeptors/${dateStr}`).pipe(
-      map((response) => response.body as Blob)
+    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
 
@@ -78,12 +121,23 @@ export class EmployeesAbroadService extends BaseService {
    * @param endFY End fiscal year date as Date or string
    * @returns Excel file blob
    */
-  getCF020(startFY: Date | string, endFY: Date | string): Observable<Blob> {
+  getCF020(
+    startFY: Date | string,
+    endFY: Date | string
+  ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.cf020;
     const startDateStr = DateUtils.toDateString(startFY);
     const endDateStr = DateUtils.toDateString(endFY);
+    const endpoint = config.endpoint
+      .replace('{startFY}', startDateStr)
+      .replace('{endFY}', endDateStr);
 
-    return this.getBlob(`EAB/GetCF020/${startDateStr}/${endDateStr}`).pipe(
-      map((response) => response.body as Blob)
+    return this.getBlob(
+      endpoint,
+      {},
+      {
+        Accept: config.acceptHeader,
+      }
     );
   }
 }

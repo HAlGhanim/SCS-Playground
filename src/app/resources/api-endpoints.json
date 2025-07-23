@@ -1,0 +1,175 @@
+{
+  "gcc": {
+    "reports": {
+      "GCCRPT20": {
+        "endpoint": "GCC/GetGCCRPT20",
+        "method": "GET",
+        "acceptHeader": "application/x-zip-compressed",
+        "description": "كشف لأصحاب الأعمال الخليجيين ممن يعمل لديهم كويتيين بالعملة الخليجية"
+      },
+      "GCCRPT30": {
+        "endpoint": "GCC/GetGCCRPT30",
+        "method": "GET",
+        "acceptHeader": "application/x-zip-compressed",
+        "description": "كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي"
+      },
+      "GCCRPT40": {
+        "endpoint": "GCC/GetGCCRPT40",
+        "method": "GET",
+        "acceptHeader": "application/x-zip-compressed",
+        "description": "كشف لأصحاب الأعمال الخليجيين ممن لديهم كويتيين بفصل الدائن والمدين"
+      },
+      "GCCRPT100": {
+        "endpoint": "GCC/GetGCCRPT100",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كتاب إحصائي لجميع أصحاب الأعمال الخليجيين"
+      },
+      "GCCRPT120": {
+        "endpoint": "GCC/GetGCCRPT120",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف عدد المسجلين تحت صاحب عمل خليجي بإختلاف فعالية السجل"
+      },
+      "GCCRPT130": {
+        "endpoint": "GCC/GetGCCRPT130/{balance}/{countryId}",
+        "method": "GET",
+        "acceptHeader": {
+          "zipCountries": [81, 84],
+          "zip": "application/x-zip-compressed",
+          "excel": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        "description": "كشف لأصحاب الأعمال الخليجيين ممن لديهم كويتيين بالعملة الخليجية (مدين)"
+      },
+      "GCCRPT150": {
+        "endpoint": "GCC/GetGCCRPT150/{stopDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف أسماء المؤمن عليهم الفعالين"
+      },
+      "GCCRPT170": {
+        "endpoint": "GCC/GetGCCRPT170",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف لأصحاب الأعمال الخليجيين المنتهية خدمات المؤمن عليهم لديهم حتى تاريخ"
+      },
+      "GCCRPTPF1": {
+        "endpoint": "GCC/GetGCCRPTPF1/{countryCode}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف المسجلين في دول مجلس التعاون"
+      },
+      "GCCRPTPF7": {
+        "endpoint": "GCC/GetGCCRPTPF7/{regNum}/{startDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف المسجلين لدى صاحب عمل خليجي"
+      },
+      "GCCRPTPF9": {
+        "endpoint": "GCC/GetGCCRPTPF9",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف أصحاب الأعمال الخليجيين"
+      },
+      "GCCRPT3132": {
+        "endpoint": "GCC/GetGCCRPT3132",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف مبالغ الإشتراكات لأصحاب الأعمال بعد الأول من ابريل 2022"
+      },
+      "GCCRPT3334": {
+        "endpoint": "GCC/GetGCCRPT3334",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف مبالغ الإشتراكات لأصحاب الأعمال السابقه للأول من ابريل 2022"
+      },
+      "GCCRPT515354": {
+        "endpoint": "GCC/GetGCCRPT515354",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف المبالغ المسدده لأصحاب الأعمال لميزانية بعد الأول من ابريل 2022"
+      },
+      "CMYGC009": {
+        "endpoint": "GCC/GetCMYGC009/{amountKD}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف الملفات الرقابيةالخاص بنظام مد الحماية للكويتيين"
+      },
+      "KwtQtrActiveDisclosure": {
+        "endpoint": "GCC/GetKwtQtrActiveDisclosure",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "طلب كشف للمؤمن عليهم الكويتيين العاملين بدولة قطر – الفعالين"
+      },
+      "KwtQtrInactiveDisclosure": {
+        "endpoint": "GCC/GetKwtQtrInactiveDisclosure",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "طلب كشف للمؤمن عليهم الكويتيين العاملين بدولة قطر – الغير الفعالين"
+      },
+      "KwtKsaActiveDisclosure": {
+        "endpoint": "GCC/GetKwtKsaActiveDisclosure",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "أصحاب أعمال في المملكة العربية السعودية"
+      }
+    },
+    "api": {
+      "employerDueBalance": {
+        "endpoint": "GCCAPI/GetGCCEmployerDueBalance/{regNum}",
+        "method": "GET",
+        "description": "Get GCC employer due balance"
+      },
+      "monthlyBalanceAccount": {
+        "endpoint": "GCCAPI/GCCMonthlyBalanceAmount/{regNum}",
+        "method": "GET",
+        "description": "Get GCC monthly balance amount"
+      },
+      "employerInfo": {
+        "endpoint": "GCCAPI/GetGccEmployerInfo/{gccCivilId}",
+        "method": "GET",
+        "description": "Get GCC employer information"
+      }
+    }
+  },
+  "eab": {
+    "reports": {
+      "monthsDue": {
+        "endpoint": "EAB/GetEABMonthsDue/{dueDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف للمؤمن عليهم العاملين بالخارج - عدد الأشهر المستحقة"
+      },
+      "inActiveCreditors": {
+        "endpoint": "EAB/GetEABInActiveCreditors/{dueDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف للمؤمن عليهم العاملين بالخارج الغير فعالين - رصيد دائن"
+      },
+      "inActiveDeptors": {
+        "endpoint": "EAB/GetEABInActiveDeptors/{dueDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف للمؤمن عليهم العاملين بالخارج الغير فعالين - رصيد مدين"
+      },
+      "activeCreditors": {
+        "endpoint": "EAB/GetEABActiveCreditors/{dueDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف للمؤمن عليهم العاملين بالخارج الفعالين - رصيد دائن"
+      },
+      "activeDeptors": {
+        "endpoint": "EAB/GetEABActiveDeptors/{dueDate}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف للمؤمن عليهم العاملين بالخارج الفعالين - رصيد مدين"
+      },
+      "cf020": {
+        "endpoint": "EAB/GetCF020/{startFY}/{endFY}",
+        "method": "GET",
+        "acceptHeader": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "description": "كشف الملفات الرقابية للعاملين بالخارج"
+      }
+    }
+  }
+}

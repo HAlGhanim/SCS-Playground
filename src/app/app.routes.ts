@@ -16,6 +16,13 @@ export const routes: Routes = [
             (m) => m.GCCReportsComponent
           ),
       },
+      {
+        path: 'eab',
+        loadComponent: () =>
+          import(
+            '../app/pages/employees-abroad/employees-abroad.component'
+          ).then((m) => m.EmployeesAbroadComponent),
+      },
     ],
   },
   {

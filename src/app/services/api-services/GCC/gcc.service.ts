@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { BaseService } from '../base.service';
-import { DateUtils } from '../../../utils/DateUtils.class';
 import { HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DateUtils } from '../../../utils/DateUtils.class';
+import { BaseService } from '../base.service';
+import * as apiEndpoints from '../../../resources/api-endpoints.json';
 
 @Injectable({ providedIn: 'root' })
 export class GCCService extends BaseService {
+  private endpoints = apiEndpoints.gcc.reports;
   /**
    * كشف لأصحاب الأعمال الخليجيين ممن يعمل لديهم كويتيين بالعملة الخليجية
    * Report for GCC employers who have Kuwaiti employees in GCC currency
@@ -13,9 +15,10 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT20(date?: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT20;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT20', params, {
-      Accept: 'application/x-zip-compressed',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -26,9 +29,10 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT30(date?: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT30;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT30', params, {
-      Accept: 'application/x-zip-compressed',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -39,9 +43,10 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT40(date?: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT40;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT40', params, {
-      Accept: 'application/x-zip-compressed',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -52,10 +57,10 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT100(date?: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT100;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT100', params, {
-      Accept:
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -66,9 +71,10 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT120(date: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT120;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT120', params, {
-      Accept: 'application/x-zip-compressed',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -85,13 +91,29 @@ export class GCCService extends BaseService {
     countryId: number,
     date?: Date
   ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT130;
     const params = DateUtils.createDateParams(date);
-    const acceptHeader =
-      countryId === 81 || countryId === 84
-        ? 'application/x-zip-compressed'
-        : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    const countryIdNum = Number(countryId);
 
-    return this.getBlob(`GCC/GetGCCRPT130/${balance}/${countryId}`, params, {
+    // Replace placeholders in endpoint
+    const endpoint = config.endpoint
+      .replace('{balance}', balance.toString())
+      .replace('{countryId}', countryId.toString());
+
+    // Determine accept header based on country
+    let acceptHeader: string;
+    if (
+      typeof config.acceptHeader === 'object' &&
+      'zipCountries' in config.acceptHeader
+    ) {
+      acceptHeader = config.acceptHeader.zipCountries.includes(countryIdNum)
+        ? config.acceptHeader.zip
+        : config.acceptHeader.excel;
+    } else {
+      acceptHeader = config.acceptHeader;
+    }
+
+    return this.getBlob(endpoint, params, {
       Accept: acceptHeader,
     });
   }
@@ -107,6 +129,7 @@ export class GCCService extends BaseService {
     stopDate: Date,
     startDate?: Date
   ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT150;
     const params: Record<string, string> = {
       StopDate: DateUtils.toDateString(stopDate),
     };
@@ -114,14 +137,14 @@ export class GCCService extends BaseService {
       params['StartDate'] = DateUtils.toDateString(startDate);
     }
 
-    return this.getBlob(
-      `GCC/GetGCCRPT150/${DateUtils.toDateString(stopDate)}`,
-      params,
-      {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      }
+    const endpoint = config.endpoint.replace(
+      '{stopDate}',
+      DateUtils.toDateString(stopDate)
     );
+
+    return this.getBlob(endpoint, params, {
+      Accept: config.acceptHeader,
+    });
   }
 
   /**
@@ -131,9 +154,10 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT170(date?: Date): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT170;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob('GCC/GetGCCRPT170', params, {
-      Accept: 'application/x-zip-compressed',
+    return this.getBlob(config.endpoint, params, {
+      Accept: config.acceptHeader,
     });
   }
 
@@ -144,12 +168,17 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPTPF1(countryCode: number): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPTPF1;
+    const endpoint = config.endpoint.replace(
+      '{countryCode}',
+      countryCode.toString()
+    );
+
     return this.getBlob(
-      `GCC/GetGCCRPTPF1/${countryCode}`,
+      endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -167,18 +196,18 @@ export class GCCService extends BaseService {
     startDate: Date,
     stopDate?: Date
   ): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPTPF7;
     const params: Record<string, string> = stopDate
       ? { stopDate: DateUtils.toDateString(stopDate) }
       : {};
 
-    return this.getBlob(
-      `GCC/GetGCCRPTPF7/${regNum}/${DateUtils.toDateString(startDate)}`,
-      params,
-      {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      }
-    );
+    const endpoint = config.endpoint
+      .replace('{regNum}', regNum.toString())
+      .replace('{startDate}', DateUtils.toDateString(startDate));
+
+    return this.getBlob(endpoint, params, {
+      Accept: config.acceptHeader,
+    });
   }
 
   /**
@@ -187,28 +216,28 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPTPF9(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPTPF9;
     return this.getBlob(
-      'GCC/GetGCCRPTPF9',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
 
   /**
-   * كشف مبالغ الإشتراكات لأصحاب الأعمال بعد الأول من ابريل
+   * كشف مبالغ الإشتراكات لأصحاب الأعمال بعد الأول من ابريل 2022
    * Report of subscription amounts for employers after April 1st
    * @returns Excel file containing the report
    */
   getGCCRPT3132(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT3132;
     return this.getBlob(
-      'GCC/GetGCCRPT3132',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -219,28 +248,27 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT3334(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT3334;
     return this.getBlob(
-      'GCC/GetGCCRPT3334',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
-
   /**
    * كشف المبالغ المسدده لأصحاب الأعمال لميزانية بعد الأول من ابريل 2022
    * Report of amounts paid by employers for budget after April 1st, 2022
    * @returns Excel file containing the report
    */
   getGCCRPT515354(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.GCCRPT515354;
     return this.getBlob(
-      'GCC/GetGCCRPT515354',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -252,12 +280,14 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getCMYGC009(amountKD: number): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.CMYGC009;
+    const endpoint = config.endpoint.replace('{amountKD}', amountKD.toString());
+
     return this.getBlob(
-      `GCC/GetCMYGC009/${amountKD}`,
+      endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -268,12 +298,12 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtQtrActiveDisclosure(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.KwtQtrActiveDisclosure;
     return this.getBlob(
-      'GCC/GetKwtQtrActiveDisclosure',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -284,12 +314,12 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtQtrInactiveDisclosure(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.KwtQtrInactiveDisclosure;
     return this.getBlob(
-      'GCC/GetKwtQtrInactiveDisclosure',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }
@@ -300,12 +330,12 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtKsaActiveDisclosure(): Observable<HttpResponse<Blob>> {
+    const config = this.endpoints.KwtKsaActiveDisclosure;
     return this.getBlob(
-      'GCC/GetKwtKsaActiveDisclosure',
+      config.endpoint,
       {},
       {
-        Accept:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        Accept: config.acceptHeader,
       }
     );
   }

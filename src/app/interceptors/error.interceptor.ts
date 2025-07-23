@@ -27,7 +27,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
       switch (error.status) {
         case 0:
           errorMessage =
-            'لا يمكن الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت';
+            'لا يمكن الاتصال بالسيرفر. يرجى التحقق من اتصالك بالإنترنت';
           break;
 
         case 400:
