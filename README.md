@@ -2,7 +2,29 @@
 
 ## Project Overview
 
-This is an Angular 19 standalone application for generating various reports for GCC (Gulf Cooperation Council) employees and Employees Abroad (EAB). The application features RTL support for Arabic language and uses Tailwind CSS for styling.
+This is an Angular 19 standalone application for generating various reports for GCC employees and Employees Abroad (EAB). The application features RTL support for Arabic language and uses Tailwind CSS for styling.
+
+## Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd SCS-playground
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the application**
+   ```bash
+   npm start
+   # or
+   ng serve
+   ```
+
+   The application will be available at `http://localhost:4200`
 
 ## Project Flow
 
@@ -255,6 +277,37 @@ Response/Error to Component
 - **English**: Employers in the Kingdom of Saudi Arabia
 - **Returns**: Excel file (.xlsx)
 - **Parameters**: None
+
+---
+
+## GCC Reports Service - خدمة تقارير دول مجلس التعاون
+
+### Employer Information Endpoints
+
+#### getGCCEmployerDueBalance
+
+- **Arabic**: الرصيد المستحق لصاحب العمل الخليجي
+- **English**: Get GCC employer due balance
+- **Returns**: JSON object with balance in Arabic and English currencies
+- **Parameters**: Registration number (8000000-8999999)
+
+#### getGCCMonthlyBalanceAccount
+
+- **Arabic**: قيمة الاشتراك الشهري لصاحب العمل الخليجي
+- **English**: Get GCC employer monthly subscription amount
+- **Returns**: JSON object with monthly balance in Arabic and English currencies
+- **Parameters**: Registration number (8000000-8999999)
+
+#### getGccEmployerInfo
+
+- **Arabic**: بيانات صاحب العمل الخليجي
+- **English**: Get GCC employer information
+- **Returns**: JSON object with employer details including:
+  - Name and addresses
+  - License information
+  - Active employee count
+  - Business type and location
+- **Parameters**: GCC employer civil ID
 
 ---
 
