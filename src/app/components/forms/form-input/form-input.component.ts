@@ -6,19 +6,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'app-form-input',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <input
-      [type]="type()"
-      [id]="inputId()"
-      [placeholder]="placeholder()"
-      [disabled]="isDisabled()"
-      [value]="value()"
-      (input)="onInputChange($event)"
-      (blur)="onTouched()"
-      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-100 disabled:cursor-not-allowed"
-      [ngClass]="inputClass()"
-    />
-  `,
+  templateUrl: `./form-input.component.html`,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

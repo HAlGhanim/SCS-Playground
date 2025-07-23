@@ -6,22 +6,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'app-form-select',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <select
-      [id]="selectId()"
-      [disabled]="isDisabled()"
-      [value]="value()"
-      (change)="onSelectChange($event)"
-      (blur)="onTouched()"
-      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-100 disabled:cursor-not-allowed bg-white"
-      [ngClass]="selectClass()"
-    >
-      @if (placeholder()) {
-      <option value="">{{ placeholder() }}</option>
-      }
-      <ng-content></ng-content>
-    </select>
-  `,
+  templateUrl: `./form-select.component.html`,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

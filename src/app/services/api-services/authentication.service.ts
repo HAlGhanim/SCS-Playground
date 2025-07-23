@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   AuthRequest,
   LoginResponse,
-} from '../../interfaces/Authentication.interface';
+} from '../../interfaces/unused/Authentication.interface';
 import { isTokenValid as checkTokenValidity } from '../../utils/isTokenExpired';
 import { environment } from '../../environment';
 

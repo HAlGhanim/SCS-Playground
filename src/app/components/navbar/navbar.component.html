@@ -1,4 +1,5 @@
-<nav class="w-full shadow p-4 flex justify-between items-center">
+<nav class="w-full shadow p-4 flex justify-start items-center gap-6">
+  <app-pifss-logo class="fill-primary"></app-pifss-logo>
   <div class="space-x-4">
     @for (link of links; track link.label) {
     <a [routerLink]="link.path" routerLinkActive="text-primary underline">
@@ -6,5 +7,4 @@
     </a>
     }
   </div>
-  <app-pifss-logo class="fill-primary"></app-pifss-logo>
 </nav>

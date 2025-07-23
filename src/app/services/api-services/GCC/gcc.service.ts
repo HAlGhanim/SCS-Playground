@@ -14,7 +14,7 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT20(date?: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT20(date?: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT20;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -28,7 +28,7 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT30(date?: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT30(date?: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT30;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -42,7 +42,7 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT40(date?: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT40(date?: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT40;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -56,7 +56,7 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns Excel file containing the report
    */
-  getGCCRPT100(date?: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT100(date?: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT100;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -70,7 +70,7 @@ export class GCCService extends BaseService {
    * @param date Required date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT120(date: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT120(date: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT120;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -89,7 +89,7 @@ export class GCCService extends BaseService {
   getGCCRPT130(
     balance: number,
     countryId: number,
-    date?: Date
+    date?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT130;
     const params = DateUtils.createDateParams(date);
@@ -126,8 +126,8 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT150(
-    stopDate: Date,
-    startDate?: Date
+    stopDate: Date | string,
+    startDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT150;
     const params: Record<string, string> = {
@@ -153,7 +153,7 @@ export class GCCService extends BaseService {
    * @param date Optional date parameter
    * @returns ZIP file containing the report
    */
-  getGCCRPT170(date?: Date): Observable<HttpResponse<Blob>> {
+  getGCCRPT170(date?: Date | string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT170;
     const params = DateUtils.createDateParams(date);
     return this.getBlob(config.endpoint, params, {
@@ -193,8 +193,8 @@ export class GCCService extends BaseService {
    */
   getGCCRPTPF7(
     regNum: number,
-    startDate: Date,
-    stopDate?: Date
+    startDate: Date | string,
+    stopDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPTPF7;
     const params: Record<string, string> = stopDate
