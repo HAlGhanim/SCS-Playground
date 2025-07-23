@@ -1,0 +1,10 @@
+<nav class="w-full shadow p-4 flex justify-between items-center">
+  <div class="space-x-4">
+    @for (link of links; track link.label) {
+    <a [routerLink]="link.path" routerLinkActive="text-primary underline">
+      {{ link.label }}
+    </a>
+    }
+  </div>
+  <app-pifss-logo class="fill-primary"></app-pifss-logo>
+</nav>

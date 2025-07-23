@@ -10,34 +10,143 @@ import { finalize } from 'rxjs/operators';
 import { FileDownloadService } from '../../services/app-services/file-download.service';
 import { EmployeesAbroadService } from '../../services/api-services/EAB/employess-abroad.service';
 import { HttpResponse } from '@angular/common/http';
+import {
+  AlertComponent,
+  PageHeaderComponent,
+  ButtonComponent,
+  FormFieldComponent,
+  ReportContainerComponent,
+  CardComponent,
+} from '../../components/index';
+import { EAB_REPORT_TYPES } from '../../interfaces/index';
+import { MessageService } from '../../services/index';
 
 @Component({
   selector: 'app-employees-abroad',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './employees-abroad.component.html',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AlertComponent,
+    PageHeaderComponent,
+    ButtonComponent,
+    FormFieldComponent,
+    ReportContainerComponent,
+    CardComponent,
+  ],
+  template: `
+    <app-report-container>
+      <app-page-header [title]="'العاملين بالخارج'"></app-page-header>
+
+      <app-card>
+        <app-alert
+          [show]="
+            messageService.isVisible() &&
+            messageService.messageType() === 'success'
+          "
+          [type]="'success'"
+          [message]="messageService.messageText()"
+        ></app-alert>
+
+        <app-alert
+          [show]="
+            messageService.isVisible() &&
+            messageService.messageType() === 'error'
+          "
+          [type]="'error'"
+          [message]="messageService.messageText()"
+        ></app-alert>
+
+        <div class="p-6">
+          <form [formGroup]="eabForm" (ngSubmit)="generateEabReport()">
+            <!-- Report Type Selection -->
+            <app-form-field
+              [label]="'نوع التقرير'"
+              [required]="true"
+              [containerClass]="'mb-6'"
+            >
+              <select
+                formControlName="reportType"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              >
+                <option value="">اختر نوع التقرير</option>
+                @for (report of eabReportTypes; track report.id; let i = $index)
+                {
+                <option [value]="report.id">
+                  {{ i + 1 }}. {{ report.name }}
+                </option>
+                }
+              </select>
+            </app-form-field>
+
+            <!-- Dynamic Fields -->
+            @if (selectedEabReportType) {
+            <div class="space-y-4">
+              <!-- Due Date for most reports -->
+              @if (selectedEabReportType !== 'cf020') {
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <app-form-field
+                  [label]="'التاريخ المستحق'"
+                  [required]="isEabFieldRequired('dueDate')"
+                >
+                  <input
+                    type="date"
+                    formControlName="dueDate"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                  />
+                </app-form-field>
+              </div>
+              }
+
+              <!-- Start/End FY for CF020 -->
+              @if (selectedEabReportType === 'cf020') {
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <app-form-field
+                  [label]="'بداية السنة المالية'"
+                  [required]="isEabFieldRequired('startFY')"
+                >
+                  <input
+                    type="date"
+                    formControlName="startFY"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                  />
+                </app-form-field>
+                <app-form-field
+                  [label]="'نهاية السنة المالية'"
+                  [required]="isEabFieldRequired('endFY')"
+                >
+                  <input
+                    type="date"
+                    formControlName="endFY"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                  />
+                </app-form-field>
+              </div>
+              }
+            </div>
+            }
+
+            <app-button
+              [loading]="loading"
+              [disabled]="eabForm.invalid"
+              [text]="'إنشاء التقرير'"
+            ></app-button>
+          </form>
+        </div>
+      </app-card>
+    </app-report-container>
+  `,
 })
 export class EmployeesAbroadComponent implements OnInit {
   eabForm: FormGroup;
   loading = false;
-  showSuccessMessage = false;
-  showErrorMessage = false;
-  message = '';
-
-  // EAB Report types
-  eabReportTypes = [
-    { id: 'monthsDue', name: 'كشف عدد الأشهر المستحقة' },
-    { id: 'inactiveCreditors', name: 'غير فعالين - رصيد دائن' },
-    { id: 'inactiveDebtors', name: 'غير فعالين - رصيد مدين' },
-    { id: 'activeCreditors', name: 'فعالين - رصيد دائن' },
-    { id: 'activeDebtors', name: 'فعالين - رصيد مدين' },
-    { id: 'cf020', name: 'كشف الملفات الرقابية (CF020)' },
-  ];
+  eabReportTypes = EAB_REPORT_TYPES;
 
   constructor(
     private fb: FormBuilder,
     private eabService: EmployeesAbroadService,
-    private fileDownloadService: FileDownloadService
+    private fileDownloadService: FileDownloadService,
+    public messageService: MessageService
   ) {
     this.eabForm = this.createEabForm();
   }
@@ -83,7 +192,7 @@ export class EmployeesAbroadComponent implements OnInit {
 
   generateEabReport(): void {
     if (this.eabForm.invalid) {
-      this.showError('يرجى ملء جميع الحقول المطلوبة');
+      this.messageService.showError('يرجى ملء جميع الحقول المطلوبة');
       return;
     }
 
@@ -138,25 +247,15 @@ export class EmployeesAbroadComponent implements OnInit {
     reportObservable.pipe(finalize(() => (this.loading = false))).subscribe({
       next: (response: HttpResponse<Blob>) => {
         this.fileDownloadService.downloadFile(response.body!, fileName);
-        this.showSuccess('تم تنزيل التقرير بنجاح');
+        this.messageService.showSuccess('تم تنزيل التقرير بنجاح');
       },
       error: (error) => {
         console.error('Error generating report:', error);
-        this.showError('حدث خطأ في إنشاء التقرير. يرجى المحاولة مرة أخرى.');
+        this.messageService.showError(
+          'حدث خطأ في إنشاء التقرير. يرجى المحاولة مرة أخرى.'
+        );
       },
     });
-  }
-
-  private showSuccess(message: string): void {
-    this.message = message;
-    this.showSuccessMessage = true;
-    setTimeout(() => (this.showSuccessMessage = false), 5000);
-  }
-
-  private showError(message: string): void {
-    this.message = message;
-    this.showErrorMessage = true;
-    setTimeout(() => (this.showErrorMessage = false), 5000);
   }
 
   isEabFieldRequired(fieldName: string): boolean {

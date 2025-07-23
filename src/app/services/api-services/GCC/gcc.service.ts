@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { BaseService } from '../base.service';
-import { DateUtils } from '../../../utils/DateUtils.class';
 import { HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DateUtils } from '../../../utils/DateUtils.class';
+import { BaseService } from '../base.service';
 import * as apiEndpoints from '../../../resources/api-endpoints.json';
 
 @Injectable({ providedIn: 'root' })
