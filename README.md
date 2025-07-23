@@ -8,7 +8,7 @@ This is an Angular 19 standalone application for generating various reports for 
 
 1. **Clone the repository**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/HAlGhanim/SCS-Playground.git
    cd SCS-playground
    ```
 
