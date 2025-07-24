@@ -7,17 +7,20 @@ This is an Angular 19 standalone application for generating various reports for 
 ## Setup Instructions
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/HAlGhanim/SCS-Playground.git
-   cd SCS-playground
+   git clone https://github.com/HAlGhanim/GCC-EAB-FE.git
+   cd GCC-EAB-FE
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Run the application**
+
    ```bash
    npm start
    # or
@@ -74,6 +77,7 @@ Response/Error to Component
 ### Pages (`src/app/pages/`)
 
 1. **GCC Reports Page** (`/gcc-reports`)
+
    - Generates 17 different types of GCC reports
    - Categories: Employer, Employee, Financial, Special reports
    - Dynamic form fields based on report type
@@ -103,6 +107,7 @@ Response/Error to Component
 ### Interfaces (`src/app/interfaces/`)
 
 1. **EAB Interfaces**:
+
    - `EabReportType` - Types of EAB reports
 
 2. **GCC Interfaces**:
@@ -114,12 +119,14 @@ Response/Error to Component
 ### Services (`src/app/services/`)
 
 #### API Services:
+
 1. **BaseService** - Base HTTP service with common methods
 2. **GCCService** - All GCC report API endpoints
 3. **EmployeesAbroadService** - All EAB report API endpoints
 4. **AuthenticationService** - Token management (placeholder)
 
 #### App Services:
+
 1. **FileDownloadService** - Handles file downloads with proper filenames
 2. **LoadingService** - Global loading state management
 3. **MessageService** - Success/error message management
