@@ -5,6 +5,7 @@ export interface GCCCountry {
 }
 
 export const GCC_COUNTRIES: GCCCountry[] = [
+  { code: 0, nameAr: 'الكويت', nameEn: 'Kuwait' },
   { code: 81, nameAr: 'السعودية', nameEn: 'Saudi Arabia' },
   { code: 82, nameAr: 'البحرين', nameEn: 'Bahrain' },
   { code: 83, nameAr: 'الإمارات', nameEn: 'UAE' },
