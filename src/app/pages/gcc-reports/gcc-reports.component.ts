@@ -179,9 +179,9 @@ export class GCCReportsComponent implements OnInit {
           formValue.countryCode!,
           formValue.date
         );
-        const countryName =
-          this.gccCountries.find((c) => c.code === formValue.countryCode)
-            ?.nameAr || '';
+        const countryName = this.gccCountries.find(
+          (c) => c.code === formValue.countryCode
+        )!.nameAr;
         fileName = `كشف لأصحاب الأعمال الخليجيين ${countryName} ${new Date().toLocaleDateString()}.${
           [81, 84].includes(formValue.countryCode!) ? 'zip' : 'xlsx'
         }`;
