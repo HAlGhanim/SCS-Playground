@@ -385,7 +385,7 @@ Response/Error to Component
 
 ## Technology Stack
 
-- **Frontend**: Angular 19 (Standalone)
+- **Frontend**: Angular 20 (Standalone)
 - **Styling**: Tailwind CSS with RTL support
 - **State Management**: Angular Signals
 - **HTTP**: Angular HttpClient with Interceptors
