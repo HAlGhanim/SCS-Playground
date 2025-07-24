@@ -190,7 +190,7 @@ Response/Error to Component
 - **Returns**: ZIP file for KSA/Oman, Excel file for others
 - **Parameters**:
   - Balance (minimum threshold)
-  - Country code (81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
+  - Country code (0=KWT, 81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
   - Optional date
 
 #### getGCCRPT150
