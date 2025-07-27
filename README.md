@@ -190,7 +190,7 @@ Response/Error to Component
 - **Returns**: ZIP file for KSA/Oman, Excel file for others
 - **Parameters**:
   - Balance (minimum threshold)
-  - Country code (0=KWT, 81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
+  - Country code (0=KWT, 81=KSA, 32=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
   - Optional date
 
 #### getGCCRPT150
@@ -296,14 +296,14 @@ Response/Error to Component
 - **Arabic**: الرصيد المستحق لصاحب العمل الخليجي
 - **English**: Get GCC employer due balance
 - **Returns**: JSON object with balance in Arabic and English currencies
-- **Parameters**: Registration number (8000000-8999999)
+- **Parameters**: Registration number (3000000-3999999)
 
 #### getGCCMonthlyBalanceAccount
 
 - **Arabic**: قيمة الاشتراك الشهري لصاحب العمل الخليجي
 - **English**: Get GCC employer monthly subscription amount
 - **Returns**: JSON object with monthly balance in Arabic and English currencies
-- **Parameters**: Registration number (8000000-8999999)
+- **Parameters**: Registration number (3000000-3999999)
 
 #### getGccEmployerInfo
 
