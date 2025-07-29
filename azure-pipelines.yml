@@ -1,0 +1,49 @@
+# Starter pipeline
+# Customize to build and deploy Angular app
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-2022
+
+jobs:
+- job: BuildAndPublish
+  steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.17.1'
+      displayName: 'Install Node.js'
+
+  - task: Npm@1
+    displayName: 'Install Angular CLI'
+    inputs:
+      command: custom
+      customCommand: 'install -g @angular/cli@20'
+
+  - task: Npm@1
+    displayName: 'Install Dependencies'
+    inputs:
+      command: install
+
+  - task: Npm@1
+    displayName: 'Build Angular App'
+    inputs:
+      command: custom
+      customCommand: 'run build -- --base-href /gcceab/'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Build Output to Artifact Staging Directory'
+    inputs:
+      SourceFolder: 'dist'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Build Artifacts'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'GccReportFrontendProdPublish'
+      publishLocation: 'pipeline'

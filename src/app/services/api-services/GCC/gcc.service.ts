@@ -88,17 +88,16 @@ export class GCCService extends BaseService {
    */
   getGCCRPT130(
     balance: number,
-    countryId: number,
+    countryId: string,
     date?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPT130;
     const params = DateUtils.createDateParams(date);
-    const countryIdNum = Number(countryId);
 
     // Replace placeholders in endpoint
     const endpoint = config.endpoint
       .replace('{balance}', balance.toString())
-      .replace('{countryId}', countryId.toString());
+      .replace('{countryId}', countryId);
 
     // Determine accept header based on country
     let acceptHeader: string;
@@ -106,7 +105,7 @@ export class GCCService extends BaseService {
       typeof config.acceptHeader === 'object' &&
       'zipCountries' in config.acceptHeader
     ) {
-      acceptHeader = config.acceptHeader.zipCountries.includes(countryIdNum)
+      acceptHeader = config.acceptHeader.zipCountries.includes(countryId)
         ? config.acceptHeader.zip
         : config.acceptHeader.excel;
     } else {
@@ -167,12 +166,9 @@ export class GCCService extends BaseService {
    * @param countryCode Country code (81=KSA, 82=Bahrain, 83=UAE, 84=Oman, 85=Qatar)
    * @returns Excel file containing the report
    */
-  getGCCRPTPF1(countryCode: number): Observable<HttpResponse<Blob>> {
+  getGCCRPTPF1(countryCode: string): Observable<HttpResponse<Blob>> {
     const config = this.endpoints.GCCRPTPF1;
-    const endpoint = config.endpoint.replace(
-      '{countryCode}',
-      countryCode.toString()
-    );
+    const endpoint = config.endpoint.replace('{countryCode}', countryCode);
 
     return this.getBlob(
       endpoint,

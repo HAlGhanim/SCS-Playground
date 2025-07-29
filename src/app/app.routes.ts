@@ -10,6 +10,11 @@ export const routes: Routes = [
     path: 'reports',
     children: [
       {
+        path: '',
+        redirectTo: 'gcc',
+        pathMatch: 'full',
+      },
+      {
         path: 'gcc',
         loadComponent: () =>
           import('../app/pages/gcc-reports/gcc-reports.component').then(

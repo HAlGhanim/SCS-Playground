@@ -160,6 +160,7 @@
             <app-form-field
               [label]="'الحد الأدنى للرصيد'"
               [required]="true"
+              [hint]="'الحد الأدنى المسموح به هو 500'"
               [showError]="hasError('balance')"
               [errorMessage]="getError('balance')"
             >
@@ -167,7 +168,7 @@
                 type="number"
                 formControlName="balance"
                 class="form-input-rtl"
-                min="0"
+                min="500"
               />
             </app-form-field>
           </div>

@@ -99,6 +99,7 @@ export class GCCReportsComponent implements OnInit {
           .get('balance')
           ?.setValidators([
             Validators.required,
+            Validators.min(500),
             CustomValidators.positiveNumber(),
           ]);
         this.reportForm.get('countryCode')?.setValidators(Validators.required);
@@ -183,7 +184,7 @@ export class GCCReportsComponent implements OnInit {
           (c) => c.code === formValue.countryCode
         )!.nameAr;
         fileName = `كشف لأصحاب الأعمال الخليجيين ${countryName} ${new Date().toLocaleDateString()}.${
-          [81, 84].includes(formValue.countryCode!) ? 'zip' : 'xlsx'
+          ['81', '84'].includes(formValue.countryCode!) ? 'zip' : 'xlsx'
         }`;
         break;
       case 'GCCRPT150':

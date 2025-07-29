@@ -35,7 +35,7 @@
         "endpoint": "GCC/GetGCCRPT130/{balance}/{countryId}",
         "method": "GET",
         "acceptHeader": {
-          "zipCountries": [81, 84],
+          "zipCountries": ["81", "84"],
           "zip": "application/x-zip-compressed",
           "excel": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         },

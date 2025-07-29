@@ -129,6 +129,6 @@ export interface ReportFormValue {
   stopDate?: Date | string;
   regNum?: number;
   balance?: number;
-  countryCode?: number;
+  countryCode?: string;
   amountKD?: number;
 }

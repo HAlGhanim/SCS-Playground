@@ -1,18 +1,17 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from '../environment';
-import { AuthenticationService } from '../services/api-services/authentication.service';
-import { inject } from '@angular/core';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
-  // const authService = inject(AuthenticationService);
-  // const token = authService.getToken();
+  if (
+    req.url.includes('login.microsoftonline.com') ||
+    req.url.includes('graph.microsoft.com') ||
+    req.url.includes('login.windows.net') ||
+    req.url.includes('login.live.com')
+  ) {
+    return next(req);
+  }
 
   let headers = req.headers.set('PIFSSApiKey', environment.pifssApiKey);
-
-  // if (token) {
-  //   headers = headers.set('Authorization', `Bearer ${token}`);
-  // }
-
   const authReq = req.clone({ headers });
 
   return next(authReq);
