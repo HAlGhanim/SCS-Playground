@@ -8,6 +8,7 @@ import * as apiEndpoints from '../../../resources/api-endpoints.json';
 @Injectable({ providedIn: 'root' })
 export class GCCService extends BaseService {
   private endpoints = apiEndpoints.gcc.reports;
+
   /**
    * كشف لأصحاب الأعمال الخليجيين ممن يعمل لديهم كويتيين بالعملة الخليجية
    * Report for GCC employers who have Kuwaiti employees in GCC currency
@@ -15,11 +16,15 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT20(date?: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT20;
+    const api = this.endpoints.GCCRPT20;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -29,11 +34,15 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT30(date?: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT30;
+    const api = this.endpoints.GCCRPT30;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -43,11 +52,15 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT40(date?: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT40;
+    const api = this.endpoints.GCCRPT40;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -57,11 +70,15 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT100(date?: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT100;
+    const api = this.endpoints.GCCRPT100;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -71,11 +88,15 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT120(date: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT120;
+    const api = this.endpoints.GCCRPT120;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -91,30 +112,32 @@ export class GCCService extends BaseService {
     countryId: string,
     date?: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT130;
+    const api = this.endpoints.GCCRPT130;
     const params = DateUtils.createDateParams(date);
 
-    // Replace placeholders in endpoint
-    const endpoint = config.endpoint
-      .replace('{balance}', balance.toString())
-      .replace('{countryId}', countryId);
+    // Construct endpoint with path parameters
+    const endpoint = `${api.endpoint}/${balance}/${countryId}`;
 
     // Determine accept header based on country
     let acceptHeader: string;
     if (
-      typeof config.acceptHeader === 'object' &&
-      'zipCountries' in config.acceptHeader
+      typeof api.acceptHeader === 'object' &&
+      'zipCountries' in api.acceptHeader
     ) {
-      acceptHeader = config.acceptHeader.zipCountries.includes(countryId)
-        ? config.acceptHeader.zip
-        : config.acceptHeader.excel;
+      acceptHeader = api.acceptHeader.zipCountries.includes(countryId)
+        ? api.acceptHeader.zip
+        : api.acceptHeader.excel;
     } else {
-      acceptHeader = config.acceptHeader;
+      acceptHeader = api.acceptHeader;
     }
 
-    return this.getBlob(endpoint, params, {
-      Accept: acceptHeader,
-    });
+    return this.getBlob(
+      endpoint,
+      {
+        Accept: acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -128,7 +151,7 @@ export class GCCService extends BaseService {
     stopDate: Date | string,
     startDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT150;
+    const api = this.endpoints.GCCRPT150;
     const params: Record<string, string> = {
       StopDate: DateUtils.toDateString(stopDate),
     };
@@ -136,14 +159,16 @@ export class GCCService extends BaseService {
       params['StartDate'] = DateUtils.toDateString(startDate);
     }
 
-    const endpoint = config.endpoint.replace(
-      '{stopDate}',
-      DateUtils.toDateString(stopDate)
-    );
+    // Construct endpoint with path parameter
+    const endpoint = `${api.endpoint}/${DateUtils.toDateString(stopDate)}`;
 
-    return this.getBlob(endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -153,11 +178,15 @@ export class GCCService extends BaseService {
    * @returns ZIP file containing the report
    */
   getGCCRPT170(date?: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT170;
+    const api = this.endpoints.GCCRPT170;
     const params = DateUtils.createDateParams(date);
-    return this.getBlob(config.endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      api.endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -167,16 +196,12 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPTPF1(countryCode: string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPTPF1;
-    const endpoint = config.endpoint.replace('{countryCode}', countryCode);
+    const api = this.endpoints.GCCRPTPF1;
+    const endpoint = `${api.endpoint}/${countryCode}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -192,18 +217,23 @@ export class GCCService extends BaseService {
     startDate: Date | string,
     stopDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPTPF7;
+    const api = this.endpoints.GCCRPTPF7;
     const params: Record<string, string> = stopDate
       ? { stopDate: DateUtils.toDateString(stopDate) }
       : {};
 
-    const endpoint = config.endpoint
-      .replace('{regNum}', regNum.toString())
-      .replace('{startDate}', DateUtils.toDateString(startDate));
+    // Construct endpoint with path parameters
+    const endpoint = `${api.endpoint}/${regNum}/${DateUtils.toDateString(
+      startDate
+    )}`;
 
-    return this.getBlob(endpoint, params, {
-      Accept: config.acceptHeader,
-    });
+    return this.getBlob(
+      endpoint,
+      {
+        Accept: api.acceptHeader,
+      },
+      params
+    );
   }
 
   /**
@@ -212,14 +242,10 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPTPF9(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPTPF9;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.GCCRPTPF9;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -228,14 +254,10 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT3132(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT3132;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.GCCRPT3132;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -244,29 +266,22 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getGCCRPT3334(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT3334;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.GCCRPT3334;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
+
   /**
    * كشف المبالغ المسدده لأصحاب الأعمال لميزانية بعد الأول من ابريل 2022
    * Report of amounts paid by employers for budget after April 1st, 2022
    * @returns Excel file containing the report
    */
   getGCCRPT515354(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.GCCRPT515354;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.GCCRPT515354;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -276,16 +291,12 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getCMYGC009(amountKD: number): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.CMYGC009;
-    const endpoint = config.endpoint.replace('{amountKD}', amountKD.toString());
+    const api = this.endpoints.CMYGC009;
+    const endpoint = `${api.endpoint}/${amountKD}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -294,14 +305,10 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtQtrActiveDisclosure(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.KwtQtrActiveDisclosure;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.KwtQtrActiveDisclosure;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -310,14 +317,10 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtQtrInactiveDisclosure(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.KwtQtrInactiveDisclosure;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.KwtQtrInactiveDisclosure;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -326,13 +329,9 @@ export class GCCService extends BaseService {
    * @returns Excel file containing the report
    */
   getKwtKsaActiveDisclosure(): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.KwtKsaActiveDisclosure;
-    return this.getBlob(
-      config.endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    const api = this.endpoints.KwtKsaActiveDisclosure;
+    return this.getBlob(api.endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 }

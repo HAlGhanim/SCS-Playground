@@ -40,13 +40,12 @@
 /* Fonts */
 @font-face {
   font-family: "mainFontEn";
-  src: url("../src/app/assets/fonts/English/Taminat_English.ttf")
-    format("truetype");
+  src: url("../src/assets/fonts/English/Taminat_English.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "mainFontAr";
-  src: url("../src/app/assets/fonts/Arabic/Taminat_Arabic.otf.ttf")
+  src: url("../src/assets/fonts/Arabic/Taminat_Arabic.otf.ttf")
     format("truetype");
 }
 

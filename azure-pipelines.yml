@@ -3,47 +3,47 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: windows-2022
 
 jobs:
-- job: BuildAndPublish
-  steps:
+  - job: BuildAndPublish
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "22.17.1"
+        displayName: "Install Node.js"
 
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '22.17.1'
-      displayName: 'Install Node.js'
+      - task: Npm@1
+        displayName: "Install Angular CLI"
+        inputs:
+          command: custom
+          customCommand: "install -g @angular/cli@20"
 
-  - task: Npm@1
-    displayName: 'Install Angular CLI'
-    inputs:
-      command: custom
-      customCommand: 'install -g @angular/cli@20'
+      - task: Npm@1
+        displayName: "Install Dependencies"
+        inputs:
+          command: install
 
-  - task: Npm@1
-    displayName: 'Install Dependencies'
-    inputs:
-      command: install
+      - task: Npm@1
+        displayName: "Build Angular App"
+        inputs:
+          command: custom
+          customCommand: "run build -- --configuration=production --base-href /gcceab/"
 
-  - task: Npm@1
-    displayName: 'Build Angular App'
-    inputs:
-      command: custom
-      customCommand: 'run build -- --base-href /gcceab/'
+      # Copy files from the correct output directory
+      - task: CopyFiles@2
+        displayName: "Copy Build Output to Artifact Staging Directory"
+        inputs:
+          SourceFolder: "dist/GCC-EAB-FE/browser"
+          Contents: "**"
+          TargetFolder: "$(Build.ArtifactStagingDirectory)"
 
-  - task: CopyFiles@2
-    displayName: 'Copy Build Output to Artifact Staging Directory'
-    inputs:
-      SourceFolder: 'dist'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-  - task: PublishPipelineArtifact@1
-    displayName: 'Publish Build Artifacts'
-    inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'GccReportFrontendProdPublish'
-      publishLocation: 'pipeline'
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish Build Artifacts"
+        inputs:
+          targetPath: "$(Build.ArtifactStagingDirectory)"
+          ArtifactName: "GccReportFrontendProdPublish"
+          publishLocation: "pipeline"

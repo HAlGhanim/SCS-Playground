@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environment';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,48 +10,48 @@ export class BaseService {
 
   private readonly baseUrl: string = environment.endpoints.gcc.gccRpt;
 
-  get<ResponseType>(url: string, params?: any, headers?: any) {
+  get<ResponseType>(url: string, headers?: any, params?: any) {
     return this._http.get<ResponseType>(this.baseUrl + url, {
-      params,
       headers,
+      params,
     });
   }
 
   post<ResponseType, RequestBodyType>(
     url: string,
     body: RequestBodyType,
-    params?: any,
-    headers?: any
+    headers?: any,
+    params?: any
   ) {
     return this._http.post<ResponseType>(this.baseUrl + url, body, {
-      params,
       headers,
+      params,
     });
   }
 
   put<ResponseType, RequestBodyType>(
     url: string,
     body: RequestBodyType,
-    params?: any,
-    headers?: any
+    headers?: any,
+    params?: any
   ) {
     return this._http.put<ResponseType>(this.baseUrl + url, body, {
-      params,
       headers,
+      params,
     });
   }
 
-  delete<ResponseType>(url: string, params?: any, headers?: any) {
+  delete<ResponseType>(url: string, headers?: any, params?: any) {
     return this._http.delete<ResponseType>(this.baseUrl + url, {
-      params,
       headers,
+      params,
     });
   }
 
-  getBlob(url: string, params?: any, headers?: any) {
+  getBlob(url: string, headers?: any, params?: any) {
     return this._http.get(this.baseUrl + url, {
-      params,
       headers,
+      params,
       responseType: 'blob',
       observe: 'response',
     });

@@ -1,10 +1,28 @@
-<nav class="w-full shadow p-4 flex justify-start items-center gap-6">
-  <app-pifss-logo class="fill-primary"></app-pifss-logo>
-  <div class="space-x-4">
-    @for (link of links; track link.label) {
-    <a [routerLink]="link.path" routerLinkActive="text-primary underline">
-      {{ link.label }}
-    </a>
+<nav class="w-full shadow p-4 flex justify-between items-center">
+  <div class="flex items-center gap-6">
+    <app-pifss-logo class="fill-primary"></app-pifss-logo>
+    @if (authService.isAuthenticated()) {
+    <div class="space-x-4">
+      @for (link of links; track link.label) {
+      <a [routerLink]="link.path" routerLinkActive="text-primary underline">
+        {{ link.label }}
+      </a>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="flex items-center gap-4">
+    @if (authService.isAuthenticated()) {
+    <span class="text-sm text-gray-600">
+      مرحباً، {{ authService.getUserDisplayName() }}
+    </span>
+    <button
+      (click)="logout()"
+      class="px-4 py-2 text-sm bg-primary hover:bg-primary/90 text-white rounded-md transition-colors"
+    >
+      تسجيل الخروج
+    </button>
     }
   </div>
 </nav>

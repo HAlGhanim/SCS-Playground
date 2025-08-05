@@ -16,17 +16,13 @@ export class EmployeesAbroadService extends BaseService {
    * @returns Excel file blob
    */
   getEABMonthsDue(dueDate: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.monthsDue;
+    const api = this.endpoints.monthsDue;
     const dateStr = DateUtils.toDateString(dueDate);
-    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+    const endpoint = `${api.endpoint}/${dateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -38,18 +34,15 @@ export class EmployeesAbroadService extends BaseService {
   getEABInActiveCreditors(
     dueDate: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.inActiveCreditors;
+    const api = this.endpoints.inActiveCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
-    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+    const endpoint = `${api.endpoint}/${dateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
+
   /**
    * كشف للمؤمن عليهم العاملين بالخارج الغير فعالين - رصيد مدين
    * Report for inactive insured employees abroad - debtor balance
@@ -59,17 +52,13 @@ export class EmployeesAbroadService extends BaseService {
   getEABInActiveDeptors(
     dueDate: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.inActiveDeptors;
+    const api = this.endpoints.inActiveDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
-    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+    const endpoint = `${api.endpoint}/${dateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -81,17 +70,13 @@ export class EmployeesAbroadService extends BaseService {
   getEABActiveCreditors(
     dueDate: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.activeCreditors;
+    const api = this.endpoints.activeCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
-    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+    const endpoint = `${api.endpoint}/${dateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -101,17 +86,13 @@ export class EmployeesAbroadService extends BaseService {
    * @returns Excel file blob
    */
   getEABActiveDeptors(dueDate: Date | string): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.activeDeptors;
+    const api = this.endpoints.activeDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
-    const endpoint = config.endpoint.replace('{dueDate}', dateStr);
+    const endpoint = `${api.endpoint}/${dateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 
   /**
@@ -125,19 +106,13 @@ export class EmployeesAbroadService extends BaseService {
     startFY: Date | string,
     endFY: Date | string
   ): Observable<HttpResponse<Blob>> {
-    const config = this.endpoints.cf020;
+    const api = this.endpoints.cf020;
     const startDateStr = DateUtils.toDateString(startFY);
     const endDateStr = DateUtils.toDateString(endFY);
-    const endpoint = config.endpoint
-      .replace('{startFY}', startDateStr)
-      .replace('{endFY}', endDateStr);
+    const endpoint = `${api.endpoint}/${startDateStr}/${endDateStr}`;
 
-    return this.getBlob(
-      endpoint,
-      {},
-      {
-        Accept: config.acceptHeader,
-      }
-    );
+    return this.getBlob(endpoint, {
+      Accept: api.acceptHeader,
+    });
   }
 }
