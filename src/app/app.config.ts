@@ -1,51 +1,33 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-  HTTP_INTERCEPTORS,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import * as i from './interceptors';
-import {
-  MsalService,
+  MSAL_GUARD_CONFIG,
+  MSAL_INSTANCE,
+  MSAL_INTERCEPTOR_CONFIG,
+  MsalBroadcastService,
   MsalGuard,
   MsalInterceptor,
-  MsalBroadcastService,
-  MSAL_INSTANCE,
-  MSAL_GUARD_CONFIG,
-  MSAL_INTERCEPTOR_CONFIG,
+  MsalService,
 } from '@azure/msal-angular';
+import { routes } from './app.routes';
 import {
-  MSALInstanceFactory,
   MSALGuardConfigFactory,
+  MSALInstanceFactory,
   MSALInterceptorConfigFactory,
 } from './config/auth.config';
-import { HttpInterceptorFn } from '@angular/common/http';
-import { environment } from '../environment';
-
-const headerInterceptor: HttpInterceptorFn = (req, next) => {
-  if (
-    req.url.includes('login.microsoftonline.com') ||
-    req.url.includes('graph.microsoft.com') ||
-    req.url.includes('login.windows.net') ||
-    req.url.includes('login.live.com')
-  ) {
-    return next(req);
-  }
-
-  const headers = req.headers.set('PIFSSApiKey', environment.pifssApiKey);
-  const modifiedReq = req.clone({ headers });
-
-  return next(modifiedReq);
-};
+import * as i from './interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -53,7 +35,7 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptorsFromDi(),
       withInterceptors([
-        headerInterceptor,
+        i.ApiKeyInterceptor,
         i.ErrorInterceptor,
         i.loadingInterceptor,
         i.retryInterceptor,
@@ -63,7 +45,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
 
-    // Hash routing strategy
     { provide: LocationStrategy, useClass: HashLocationStrategy },
 
     {
