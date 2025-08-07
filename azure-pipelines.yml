@@ -1,7 +1,3 @@
-# Starter pipeline
-# Customize to build and deploy Angular app
-# https://aka.ms/yaml
-
 trigger:
   - main
 
@@ -33,7 +29,6 @@ jobs:
           command: custom
           customCommand: "run build -- --configuration=production --base-href /gcceab/"
 
-      # Copy files from the correct output directory
       - task: CopyFiles@2
         displayName: "Copy Build Output to Artifact Staging Directory"
         inputs:

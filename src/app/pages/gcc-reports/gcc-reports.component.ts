@@ -59,6 +59,7 @@ export class GCCReportsComponent implements OnInit {
   ngOnInit(): void {
     this.reportForm.get('reportType')?.valueChanges.subscribe((reportType) => {
       if (reportType) {
+        this.resetDateFields();
         this.updateFormValidators(reportType);
       }
     });
@@ -72,13 +73,36 @@ export class GCCReportsComponent implements OnInit {
       stopDate: [null],
       regNum: [null],
       balance: [null],
-      countryCode: [null],
-      amountKD: [null],
+      countryCode: [''],
+      amountKD: [''],
     });
   }
 
+  private resetDateFields(): void {
+    this.reportForm.patchValue(
+      {
+        date: null,
+        startDate: null,
+        stopDate: null,
+      },
+      { emitEvent: false }
+    );
+  }
+
+  resetDates(): void {
+    this.resetDateFields();
+    this.reportForm.get('date')?.updateValueAndValidity();
+    this.reportForm.get('startDate')?.updateValueAndValidity();
+    this.reportForm.get('stopDate')?.updateValueAndValidity();
+    this.reportForm.updateValueAndValidity();
+  }
+
+  hasDateFields(): boolean {
+    const reportType = this.selectedReportType;
+    return reportType !== '';
+  }
+
   private updateFormValidators(reportType: string): void {
-    // Reset all validators
     Object.keys(this.reportForm.controls).forEach((key) => {
       if (key !== 'reportType') {
         this.reportForm.get(key)?.clearValidators();
@@ -86,10 +110,8 @@ export class GCCReportsComponent implements OnInit {
       }
     });
 
-    // Clear form-level validators
     this.reportForm.clearValidators();
 
-    // Set validators based on report type
     switch (reportType) {
       case 'GCCRPT120':
         this.reportForm.get('date')?.setValidators(Validators.required);
@@ -106,7 +128,6 @@ export class GCCReportsComponent implements OnInit {
         break;
       case 'GCCRPT150':
         this.reportForm.get('stopDate')?.setValidators(Validators.required);
-        // Add date range validator at form level
         this.reportForm.setValidators(
           CustomValidators.dateRange('startDate', 'stopDate')
         );
@@ -122,7 +143,6 @@ export class GCCReportsComponent implements OnInit {
             CustomValidators.gccRegistrationNumber(),
           ]);
         this.reportForm.get('startDate')?.setValidators(Validators.required);
-        // Add date range validator at form level if stopDate is provided
         this.reportForm.setValidators(
           CustomValidators.dateRange('startDate', 'stopDate')
         );
@@ -132,7 +152,6 @@ export class GCCReportsComponent implements OnInit {
         break;
     }
 
-    // Update validity
     Object.keys(this.reportForm.controls).forEach((key) => {
       this.reportForm.get(key)?.updateValueAndValidity({ emitEvent: false });
     });
@@ -183,7 +202,7 @@ export class GCCReportsComponent implements OnInit {
         const countryName = this.gccCountries.find(
           (c) => c.code === formValue.countryCode
         )!.nameAr;
-        fileName = `كشف لأصحاب الأعمال الخليجيين ${countryName} ${new Date().toLocaleDateString()}.${
+        fileName = `كشف لأصحاب الأعمال الخليجيين في ${countryName} ${new Date().toLocaleDateString()}.${
           ['81', '84'].includes(formValue.countryCode!) ? 'zip' : 'xlsx'
         }`;
         break;
@@ -282,13 +301,11 @@ export class GCCReportsComponent implements OnInit {
     return this.reportForm.get('reportType')?.value || '';
   }
 
-  // Helper methods for form validation
   hasError(fieldName: string): boolean {
     return FormHelpers.hasError(this.reportForm.get(fieldName), fieldName);
   }
 
   getError(fieldName: string): string {
-    // Handle form-level errors
     if (fieldName === 'dateRange' && this.reportForm.hasError('dateRange')) {
       return 'تاريخ النهاية يجب أن يكون بعد تاريخ البداية';
     }

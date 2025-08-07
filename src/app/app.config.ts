@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
   provideHttpClient,
   withFetch,
@@ -27,17 +28,8 @@ import {
   MSALGuardConfigFactory,
   MSALInterceptorConfigFactory,
 } from './config/auth.config';
-import { APP_BASE_HREF } from '@angular/common';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from '../environment';
-
-function getBaseHref(): string {
-  const isLocalhost =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1';
-
-  return isLocalhost ? '/' : '/gcceab/';
-}
 
 const headerInterceptor: HttpInterceptorFn = (req, next) => {
   if (
@@ -71,6 +63,9 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
 
+    // Hash routing strategy
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory,
@@ -87,10 +82,6 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
-    },
-    {
-      provide: APP_BASE_HREF,
-      useValue: getBaseHref(),
     },
     MsalService,
     MsalGuard,

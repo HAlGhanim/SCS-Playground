@@ -36,7 +36,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/gcceab/",
               "fileReplacements": [
                 {
                   "replace": "src/environment.ts",
@@ -63,8 +62,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "baseHref": "/"
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
