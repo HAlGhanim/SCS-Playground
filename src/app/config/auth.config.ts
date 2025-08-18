@@ -23,9 +23,8 @@ const selectedMsalConfig = getMsalConfig();
 
 export const msalConfig = {
   auth: {
-    clientId: '163a6668-d7c7-428d-88a5-0dae8bf35311',
-    authority:
-      'https://login.microsoftonline.com/31819927-6989-4bd0-b5e5-81740d4154c3',
+    clientId: environment.msal.entraId.clientId,
+    authority: environment.msal.entraId.authority,
     redirectUri: selectedMsalConfig,
     postLogoutRedirectUri: selectedMsalConfig,
     navigateToLoginRequestUrl: true,
@@ -60,10 +59,6 @@ export const msalConfig = {
   },
 };
 
-export const apiScopes = [
-  'api://163a6668-d7c7-428d-88a5-0dae8bf35311/User.Read',
-];
-
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication(msalConfig);
 }
@@ -72,7 +67,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     authRequest: {
-      scopes: apiScopes,
+      scopes: environment.msal.entraId.apiScopes,
     },
   };
 }
@@ -81,19 +76,34 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
 
   // GCC Report API
-  protectedResourceMap.set(environment.endpoints.gcc.gccRpt + '*', apiScopes);
+  protectedResourceMap.set(
+    environment.endpoints.gcc.gccRpt + '*',
+    environment.msal.entraId.apiScopes
+  );
 
   // PBDapper API
-  protectedResourceMap.set(environment.endpoints.pbDapperUrl + '*', apiScopes);
+  protectedResourceMap.set(
+    environment.endpoints.pbDapperUrl + '*',
+    environment.msal.entraId.apiScopes
+  );
 
   // Base API
-  protectedResourceMap.set(environment.baseUrl + '*', apiScopes);
+  protectedResourceMap.set(
+    environment.baseUrl + '*',
+    environment.msal.entraId.apiScopes
+  );
 
   // CoreBizApi
-  protectedResourceMap.set(environment.employedAbroad + '*', apiScopes);
+  protectedResourceMap.set(
+    environment.employedAbroad + '*',
+    environment.msal.entraId.apiScopes
+  );
 
   // SCS Backend
-  protectedResourceMap.set(environment.scsbackendUrl + '*', apiScopes);
+  protectedResourceMap.set(
+    environment.scsbackendUrl + '*',
+    environment.msal.entraId.apiScopes
+  );
 
   return {
     interactionType: InteractionType.Redirect,

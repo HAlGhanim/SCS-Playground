@@ -30,9 +30,13 @@
         >
           <select formControlName="reportType" class="form-select-rtl">
             <option value="">اختر نوع التقرير</option>
-            @for (report of eabReportTypes; track report.id; let i = $index) {
-            <option [value]="report.id">{{ i + 1 }}. {{ report.name }}</option>
-            }
+            <optgroup label="كشوف للمؤمن عليهم العاملين بالخارج">
+              @for (report of eabReportTypes; track report.id; let i = $index) {
+              <option [value]="report.id">
+                {{ i + 1 }}. {{ report.name }}
+              </option>
+              }
+            </optgroup>
           </select>
         </app-form-field>
 

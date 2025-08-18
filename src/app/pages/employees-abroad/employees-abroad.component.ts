@@ -132,38 +132,38 @@ export class EmployeesAbroadComponent implements OnInit {
     switch (reportType) {
       case 'monthsDue':
         reportObservable = this.eabService.getEABMonthsDue(formValue.dueDate);
-        fileName = `كشف عدد الأشهر المستحقة ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف للمؤمن عليهم العاملين بالخارج - عدد الأشهر المستحقة ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'inactiveCreditors':
         reportObservable = this.eabService.getEABInActiveCreditors(
           formValue.dueDate
         );
-        fileName = `كشف غير فعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف للمؤمن عليهم العاملين بالخارج غير الفعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'inactiveDebtors':
         reportObservable = this.eabService.getEABInActiveDeptors(
           formValue.dueDate
         );
-        fileName = `كشف غير فعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف للمؤمن عليهم العاملين بالخارج الغير فعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'activeCreditors':
         reportObservable = this.eabService.getEABActiveCreditors(
           formValue.dueDate
         );
-        fileName = `كشف فعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف للمؤمن عليهم العاملين بالخارج الفعالين - رصيد دائن ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'activeDebtors':
         reportObservable = this.eabService.getEABActiveDeptors(
           formValue.dueDate
         );
-        fileName = `كشف فعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف للمؤمن عليهم العاملين بالخارج الفعالين - رصيد مدين ${new Date().toLocaleDateString()}.xlsx`;
         break;
       case 'cf020':
         reportObservable = this.eabService.getCF020(
           formValue.startFY,
           formValue.endFY
         );
-        fileName = `كشف الملفات الرقابية ${new Date().toLocaleDateString()}.xlsx`;
+        fileName = `كشف الملفات الرقابية العاملين بالخارج ${new Date().toLocaleDateString()}.xlsx`;
         break;
       default:
         this.loading = false;

@@ -114,11 +114,7 @@ export class GCCService extends BaseService {
   ): Observable<HttpResponse<Blob>> {
     const api = this.endpoints.GCCRPT130;
     const params = DateUtils.createDateParams(date);
-
-    // Construct endpoint with path parameters
     const endpoint = `${api.endpoint}/${balance}/${countryId}`;
-
-    // Determine accept header based on country
     let acceptHeader: string;
     if (
       typeof api.acceptHeader === 'object' &&
@@ -130,7 +126,6 @@ export class GCCService extends BaseService {
     } else {
       acceptHeader = api.acceptHeader;
     }
-
     return this.getBlob(
       endpoint,
       {
@@ -152,16 +147,11 @@ export class GCCService extends BaseService {
     startDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const api = this.endpoints.GCCRPT150;
-    const params: Record<string, string> = {
-      StopDate: DateUtils.toDateString(stopDate),
-    };
-    if (startDate) {
-      params['StartDate'] = DateUtils.toDateString(startDate);
-    }
-
-    // Construct endpoint with path parameter
-    const endpoint = `${api.endpoint}/${DateUtils.toDateString(stopDate)}`;
-
+    const dateStr = DateUtils.toDateString(stopDate);
+    const params: Record<string, string> = startDate
+      ? { StartDate: DateUtils.toDateString(startDate) }
+      : {};
+    const endpoint = `${api.endpoint}/${dateStr}`;
     return this.getBlob(
       endpoint,
       {
@@ -198,7 +188,6 @@ export class GCCService extends BaseService {
   getGCCRPTPF1(countryCode: string): Observable<HttpResponse<Blob>> {
     const api = this.endpoints.GCCRPTPF1;
     const endpoint = `${api.endpoint}/${countryCode}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -218,15 +207,11 @@ export class GCCService extends BaseService {
     stopDate?: Date | string
   ): Observable<HttpResponse<Blob>> {
     const api = this.endpoints.GCCRPTPF7;
+    const dateStr = DateUtils.toDateString(startDate);
     const params: Record<string, string> = stopDate
       ? { stopDate: DateUtils.toDateString(stopDate) }
       : {};
-
-    // Construct endpoint with path parameters
-    const endpoint = `${api.endpoint}/${regNum}/${DateUtils.toDateString(
-      startDate
-    )}`;
-
+    const endpoint = `${api.endpoint}/${regNum}/${dateStr}`;
     return this.getBlob(
       endpoint,
       {
@@ -293,7 +278,6 @@ export class GCCService extends BaseService {
   getCMYGC009(amountKD: number): Observable<HttpResponse<Blob>> {
     const api = this.endpoints.CMYGC009;
     const endpoint = `${api.endpoint}/${amountKD}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });

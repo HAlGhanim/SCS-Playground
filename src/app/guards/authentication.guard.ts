@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { InteractionStatus } from '@azure/msal-browser';
 import { filter, map } from 'rxjs/operators';
-import { apiScopes } from '../config/auth.config';
+import { environment } from '../../environment';
 
 export const authGuard = () => {
   const msalService = inject(MsalService);
@@ -20,7 +20,7 @@ export const authGuard = () => {
         sessionStorage.setItem('redirectUrl', attemptedUrl);
 
         msalService.loginRedirect({
-          scopes: apiScopes,
+          scopes: environment.msal.entraId.apiScopes,
         });
         return false;
       }

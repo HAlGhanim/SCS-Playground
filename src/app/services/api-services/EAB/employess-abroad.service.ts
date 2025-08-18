@@ -19,7 +19,6 @@ export class EmployeesAbroadService extends BaseService {
     const api = this.endpoints.monthsDue;
     const dateStr = DateUtils.toDateString(dueDate);
     const endpoint = `${api.endpoint}/${dateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -37,7 +36,6 @@ export class EmployeesAbroadService extends BaseService {
     const api = this.endpoints.inActiveCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
     const endpoint = `${api.endpoint}/${dateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -55,7 +53,6 @@ export class EmployeesAbroadService extends BaseService {
     const api = this.endpoints.inActiveDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
     const endpoint = `${api.endpoint}/${dateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -73,7 +70,6 @@ export class EmployeesAbroadService extends BaseService {
     const api = this.endpoints.activeCreditors;
     const dateStr = DateUtils.toDateString(dueDate);
     const endpoint = `${api.endpoint}/${dateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -89,7 +85,6 @@ export class EmployeesAbroadService extends BaseService {
     const api = this.endpoints.activeDeptors;
     const dateStr = DateUtils.toDateString(dueDate);
     const endpoint = `${api.endpoint}/${dateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });
@@ -110,7 +105,6 @@ export class EmployeesAbroadService extends BaseService {
     const startDateStr = DateUtils.toDateString(startFY);
     const endDateStr = DateUtils.toDateString(endFY);
     const endpoint = `${api.endpoint}/${startDateStr}/${endDateStr}`;
-
     return this.getBlob(endpoint, {
       Accept: api.acceptHeader,
     });

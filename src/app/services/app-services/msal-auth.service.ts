@@ -7,7 +7,7 @@ import {
 } from '@azure/msal-browser';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { apiScopes } from '../../config/auth.config';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +54,7 @@ export class MsalAuthService {
    */
   loginPopup(): Observable<AuthenticationResult> {
     const loginRequest: PopupRequest = {
-      scopes: apiScopes,
+      scopes: environment.msal.entraId.apiScopes,
     };
 
     return from(this.msalService.loginPopup(loginRequest)).pipe(
@@ -76,7 +76,7 @@ export class MsalAuthService {
    */
   loginRedirect(): void {
     const loginRequest: RedirectRequest = {
-      scopes: apiScopes,
+      scopes: environment.msal.entraId.apiScopes,
     };
     this.msalService.loginRedirect(loginRequest);
   }
@@ -111,7 +111,7 @@ export class MsalAuthService {
     }
 
     const request = {
-      scopes: apiScopes,
+      scopes: environment.msal.entraId.apiScopes,
       account: account,
     };
 

@@ -18,10 +18,6 @@ export class NavbarComponent {
     { label: 'العاملين بالخارج', path: '/reports/eab' },
   ];
 
-  login() {
-    this.authService.loginRedirect();
-  }
-
   logout() {
     this.authService.logoutRedirect();
   }
