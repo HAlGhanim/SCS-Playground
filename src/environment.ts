@@ -11,8 +11,8 @@ export const environment = {
       postLogoutRedirectUri: 'http://localhost:4200',
     },
     dev: {
-      redirectUri: 'http://192.168.100.100/gcceab',
-      postLogoutRedirectUri: 'http://192.168.100.100/gcceab',
+      redirectUri: 'https://192.168.100.100/gcceab',
+      postLogoutRedirectUri: 'https://192.168.100.100/gcceab',
     },
     entraId: {
       clientId: '163a6668-d7c7-428d-88a5-0dae8bf35311',
@@ -31,7 +31,8 @@ export const environment = {
     unenrolledData: 'unenrolledData/',
     gcc: {
       certificates: 'GCC/certificates/',
-      gccRpt: 'http://192.168.100.100/GCCReport/api/',
+      // gccRpt: 'http://192.168.100.100/GCCReport/api/',
+      gccRpt: 'https://192.168.100.100/gccproxy/api/',
     },
     pbDapperUrl: 'http://192.168.100.100/PBDapper/',
   },

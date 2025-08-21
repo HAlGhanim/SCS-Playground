@@ -173,14 +173,14 @@ export class GCCReportsComponent implements OnInit {
     let fileName = '';
 
     switch (reportType) {
-      // case 'GCCRPT20':
-      //   reportObservable = this.gccService.getGCCRPT20(formValue.date);
-      //   fileName = `كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية ${new Date().toLocaleDateString()}.zip`;
-      //   break;
-      // case 'GCCRPT30':
-      //   reportObservable = this.gccService.getGCCRPT30(formValue.date);
-      //   fileName = `كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي ${new Date().toLocaleDateString()}.zip`;
-      //   break;
+      case 'GCCRPT20':
+        reportObservable = this.gccService.getGCCRPT20(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية ${new Date().toLocaleDateString()}.zip`;
+        break;
+      case 'GCCRPT30':
+        reportObservable = this.gccService.getGCCRPT30(formValue.date);
+        fileName = `كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي ${new Date().toLocaleDateString()}.zip`;
+        break;
       case 'GCCRPT40':
         reportObservable = this.gccService.getGCCRPT40(formValue.date);
         fileName = `كشف لأصحاب الأعمال الخليجيين بفصل الدائن والمدين ${new Date().toLocaleDateString()}.zip`;

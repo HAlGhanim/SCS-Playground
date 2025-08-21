@@ -7,18 +7,18 @@ export interface ReportType {
 
 export const GCC_REPORT_TYPES: ReportType[] = [
   // Employer Reports
-  // {
-  //   id: 'GCCRPT20',
-  //   name: 'GCC Employers Report (GCC Currency)',
-  //   nameAr: 'كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية (20)',
-  //   category: 'employer',
-  // },
-  // {
-  //   id: 'GCCRPT30',
-  //   name: 'GCC Employers Report (KWD)',
-  //   nameAr: 'كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي (30)',
-  //   category: 'employer',
-  // },
+  {
+    id: 'GCCRPT20',
+    name: 'GCC Employers Report (GCC Currency)',
+    nameAr: 'كشف لأصحاب الأعمال الخليجيين بالعملة الخليجية (20)',
+    category: 'employer',
+  },
+  {
+    id: 'GCCRPT30',
+    name: 'GCC Employers Report (KWD)',
+    nameAr: 'كشف لأصحاب الأعمال الخليجيين بالدينار الكويتي (30)',
+    category: 'employer',
+  },
   {
     id: 'GCCRPT40',
     name: 'GCC Employers Creditors/Debtors',

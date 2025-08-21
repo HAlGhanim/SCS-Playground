@@ -26,7 +26,9 @@ export const environment = {
     unenrolledData: 'unenrolledData/',
     gcc: {
       certificates: 'GCC/certificates/',
-      gccRpt: 'http://websvcs.pifss.local/GCCRPT/api/',
+      // gccRpt: 'http://websvcs.pifss.local/GCCRPT/api/',
+      // gccRpt: 'http://websvcs.pifss.local/GCCProxy/api/',
+      gccRpt: 'https://192.168.100.100/gccproxy/api/',
     },
     pbDapperUrl: 'http://websvcs.pifss.local/pbalances/',
   },

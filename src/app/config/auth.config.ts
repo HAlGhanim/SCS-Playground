@@ -11,8 +11,7 @@ import {
 import { environment } from '../../environment';
 
 function getMsalConfig() {
-  const isLocalhost =
-    window.location.hostname === 'localhost' && window.location.port === '4200';
+  const isLocalhost = window.location.hostname === 'localhost';
 
   return isLocalhost
     ? environment.msal.local.redirectUri
